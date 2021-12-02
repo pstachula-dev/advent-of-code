@@ -1,4 +1,4 @@
-import { readInput } from "../utils.js";
+import { readInput } from "../../utils.js";
 
 const data = await readInput("./2020/day4/input.js", Infinity, /\n\s/);
 const required = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
