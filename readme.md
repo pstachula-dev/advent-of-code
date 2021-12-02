@@ -1,11 +1,14 @@
 # Advent of code time!
 
-2020 5/25
-2021 2/25... in progress
+> 2020 - 5/25
+> 
+>2021 - 2/25... in progress
 
-# Require: Nodejs 12>
+### How to run code:
 
-# How to run code:
+Requirements: Nodejs 12+
+
+Inside root directory run:
 
 ```
 node 2021/day2
