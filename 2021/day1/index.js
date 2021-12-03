@@ -1,6 +1,6 @@
 import { readInput } from "../../utils.js";
 
-const data = (await readInput("./2021/day1/input.js")).map((e) => parseInt(e));
+const data = (await readInput("./2021/day1/input.txt")).map((e) => parseInt(e));
 
 // P1
 const part1 = (data) => data.filter((el, index) => el < data[index + 1]).length;

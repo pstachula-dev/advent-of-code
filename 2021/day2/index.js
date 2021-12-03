@@ -1,6 +1,8 @@
 import { readInput } from "../../utils.js";
 
-const data = (await readInput("./2021/day2/input.js")).map((el) =>
+// MOVE solution to Deno
+
+const data = (await readInput("./2021/day2/input.txt")).map((el) =>
   el.split(" ")
 );
 
