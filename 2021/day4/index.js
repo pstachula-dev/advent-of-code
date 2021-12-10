@@ -30,7 +30,7 @@ const createBingoSets = (data) => {
     }
 
     if (row === "" && rows.length) {
-      bingoSets.push({ rows, bingoCounter: 0 });
+      bingoSets.push({ rows });
       rows = [];
     }
   }
@@ -38,29 +38,29 @@ const createBingoSets = (data) => {
   return { randomNumbers, bingoSets };
 };
 
-const computeRow = (data, rows, randoms) => {
+const checkRandomsWithArray = (data, rows, randoms) => {
   if (data.every((el) => randoms.includes(el))) {
-    return [
-      data,
+    return (
       rows
         .flat()
         .filter((el) => !randoms.includes(el))
-        .reduce((a, b) => (a += b), 0) * randoms[randoms.length - 1],
-    ];
+        .reduce((a, b) => (a += b), 0) * randoms[randoms.length - 1]
+    );
   }
 };
 
 const { randomNumbers, bingoSets } = createBingoSets(data);
 
+// PART1
 const part1 = ({ bingoSets, randomNumbers }) => {
-  const randoms = [];
+  const randomQueue = [];
   for (let randomNumber of randomNumbers) {
-    randoms.push(randomNumber);
-    for (let table of bingoSets) {
-      for (let [index, row] of Object.entries(table.rows)) {
-        const col = getCol(table.rows, index);
-        const rowIsWinner = computeRow(row, table.rows, randoms);
-        const colIsWinner = computeRow(col, table.rows, randoms);
+    randomQueue.push(randomNumber);
+    for (let { rows } of bingoSets) {
+      for (let [index, row] of Object.entries(rows)) {
+        const col = getCol(rows, index);
+        const rowIsWinner = checkRandomsWithArray(row, rows, randomQueue);
+        const colIsWinner = checkRandomsWithArray(col, rows, randomQueue);
         if (rowIsWinner) return rowIsWinner;
         if (colIsWinner) return colIsWinner;
       }
@@ -69,3 +69,34 @@ const part1 = ({ bingoSets, randomNumbers }) => {
 };
 
 console.log("P1", part1({ bingoSets, randomNumbers }));
+
+// PART2
+const part2 = ({ bingoSets, randomNumbers }) => {
+  const winnerTable = new Set();
+  const randomQueue = [];
+  for (let randomNumber of randomNumbers) {
+    randomQueue.push(randomNumber);
+    for (let { rows } of bingoSets) {
+      for (let [index, row] of Object.entries(rows)) {
+        const col = getCol(rows, index);
+        const rowIsWinner = checkRandomsWithArray(row, rows, randomQueue);
+        const colIsWinner = checkRandomsWithArray(col, rows, randomQueue);
+        if (rowIsWinner || colIsWinner) {
+          winnerTable.add(rows);
+          if (winnerTable.size === bingoSets.length) {
+            const lastBoard = [...winnerTable].pop();
+            return (
+              lastBoard
+                .flat()
+                .filter((el) => !randomQueue.includes(el))
+                .reduce((a, b) => (a += b), 0) *
+              randomQueue[randomQueue.length - 1]
+            );
+          }
+        }
+      }
+    }
+  }
+};
+
+console.log("P2", part2({ bingoSets, randomNumbers }));
