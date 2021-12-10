@@ -19,12 +19,12 @@ const createBingoSets = (data) => {
     .split(",")
     .map((e) => parseInt(e));
 
-  for (const [index, row] of data.entries()) {
+  for (const row of data) {
     if (row !== "") {
       rows.push(
         row
           .split(" ")
-          .filter((e) => e)
+          .filter(Boolean)
           .map((e) => parseInt(e))
       );
     }
@@ -44,7 +44,7 @@ const checkRandomsWithArray = (data, rows, randoms) => {
       rows
         .flat()
         .filter((el) => !randoms.includes(el))
-        .reduce((a, b) => (a += b), 0) * randoms[randoms.length - 1]
+        .reduce((a, b) => (a += b), 0) * randoms.at(-1)
     );
   }
 };
@@ -84,13 +84,12 @@ const part2 = ({ bingoSets, randomNumbers }) => {
         if (rowIsWinner || colIsWinner) {
           winnerTable.add(rows);
           if (winnerTable.size === bingoSets.length) {
-            const lastBoard = [...winnerTable].pop();
+            const lastBoard = [...winnerTable].at(-1);
             return (
               lastBoard
                 .flat()
                 .filter((el) => !randomQueue.includes(el))
-                .reduce((a, b) => (a += b), 0) *
-              randomQueue[randomQueue.length - 1]
+                .reduce((a, b) => (a += b), 0) * randomQueue.at(-1)
             );
           }
         }
