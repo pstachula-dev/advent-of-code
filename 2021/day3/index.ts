@@ -1,8 +1,4 @@
-import { readInput } from "../../utils.js";
-
-const data = (await readInput("./2021/day3/input.txt")).map(
-  (el) => el.split("\n")[0]
-);
+import { runner } from "../../utils";
 
 // P1
 const part1 = (data) => {
@@ -29,7 +25,9 @@ const part1 = (data) => {
   return parseInt(gamma, 2) * parseInt(epsilon, 2);
 };
 
-console.log("P1", part1(data));
+runner((input) => {
+  return part1(input.map((el) => el.split("\n")[0]));
+}, "./2021/day3/input.txt");
 
 // P2
 const part2 = (data, start = 0) => {
@@ -92,6 +90,8 @@ const part2b = (data, start = 0) => {
   part2b(temp, start + 1);
 };
 
-// TODO: refactor...
-part2(data);
-part2b(data);
+runner((input) => {
+  const data = input.map((el) => el.split("\n")[0]);
+  part2(data);
+  return part2b(data);
+}, "./2021/day3/input.txt");

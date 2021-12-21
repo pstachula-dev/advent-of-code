@@ -21,7 +21,7 @@ const part1 = (initData: number[]) => {
   return result.size;
 };
 
-runner((input: string[]) => {
+runner((input) => {
   const data = input[0].split(",").map((e) => parseInt(e));
 
   return part1(data);

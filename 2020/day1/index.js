@@ -1,4 +1,4 @@
-import { readInput } from "../../utils.js";
+import { readInput } from "../../utils";
 
 const data = (await readInput("./2020/day1/input.js")).map((e) => parseInt(e));
 

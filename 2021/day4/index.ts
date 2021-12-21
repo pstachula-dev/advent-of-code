@@ -1,6 +1,4 @@
-import { readInput } from "../../utils.js";
-
-const data = await readInput("./2021/day4/input.txt");
+import { runner } from "../../utils";
 
 const getCol = (matrix, rowIndex) => {
   const col = [];
@@ -49,8 +47,6 @@ const checkRandomsWithArray = (data, rows, randoms) => {
   }
 };
 
-const { randomNumbers, bingoSets } = createBingoSets(data);
-
 // PART1
 const part1 = ({ bingoSets, randomNumbers }) => {
   const randomQueue = [];
@@ -68,7 +64,10 @@ const part1 = ({ bingoSets, randomNumbers }) => {
   }
 };
 
-console.log("P1", part1({ bingoSets, randomNumbers }));
+runner((input) => {
+  const { randomNumbers, bingoSets } = createBingoSets(input);
+  return part1({ bingoSets, randomNumbers });
+}, "./2021/day4/input.txt");
 
 // PART2
 const part2 = ({ bingoSets, randomNumbers }) => {
@@ -84,7 +83,7 @@ const part2 = ({ bingoSets, randomNumbers }) => {
         if (rowIsWinner || colIsWinner) {
           winnerTable.add(rows);
           if (winnerTable.size === bingoSets.length) {
-            const lastBoard = [...winnerTable].at(-1);
+            const lastBoard = [...winnerTable].at(-1) as [];
             return (
               lastBoard
                 .flat()
@@ -98,4 +97,7 @@ const part2 = ({ bingoSets, randomNumbers }) => {
   }
 };
 
-console.log("P2", part2({ bingoSets, randomNumbers }));
+runner((input) => {
+  const { randomNumbers, bingoSets } = createBingoSets(input);
+  return part2({ bingoSets, randomNumbers });
+}, "./2021/day4/input.txt");

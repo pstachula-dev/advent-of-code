@@ -1,10 +1,4 @@
-import { readInput } from "../../utils.js";
-
-// MOVE solution to Deno
-
-const data = (await readInput("./2021/day2/input.txt")).map((el) =>
-  el.split(" ")
-);
+import { runner } from "../../utils";
 
 const POSITION = {
   forward: "forward",
@@ -37,7 +31,9 @@ const part1 = (data) => {
   return depth * horizontal;
 };
 
-console.log("P1", part1(data));
+runner((input) => {
+  return part1(input.map((el) => el.split(" ")));
+}, "./2021/day2/input.txt");
 
 // P2
 const part2 = (data) => {
@@ -66,4 +62,6 @@ const part2 = (data) => {
   return depth * horizontal;
 };
 
-console.log("P2", part2(data));
+runner((input) => {
+  return part2(input.map((el) => el.split(" ")));
+}, "./2021/day2/input.txt");

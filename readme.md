@@ -2,7 +2,7 @@
 
 > 2020 - 5/25
 > 
->2021 - 2/25... in progress
+>2021 - 6/25... in progress
 
 ### How to run code:
 
@@ -11,7 +11,7 @@ Requirements: Nodejs 12+
 Inside root directory run:
 
 ```
-node 2021/day2
+npx ts-node 2021/day2
 ```
 
 More info: https://adventofcode.com/

@@ -1,4 +1,4 @@
-import { readInput } from "../../utils.js";
+import { readInput } from "../../utils";
 
 const [input] = await readInput("./2021/day7/input.txt");
 const data = input.split(",").map((e) => parseInt(e));
