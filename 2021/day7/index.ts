@@ -1,15 +1,12 @@
-import { readInput } from "../../utils";
-
-const [input] = await readInput("./2021/day7/input.txt");
-const data = input.split(",").map((e) => parseInt(e));
+import { runner } from "../../utils";
 
 // P1
-const part1 = (data) => {
+const part1 = (data: number[]) => {
   const dataSorted = [...data].sort((a, b) => a - b);
   const min = dataSorted.at(0);
   const max = dataSorted.at(-1);
   const range = max - min;
-  const results = new Array(range).fill(0);
+  const results = new Array<number>(range).fill(0);
 
   for (let i = 0; i < range; i++) {
     data.forEach((el) => {
@@ -19,4 +16,11 @@ const part1 = (data) => {
   return results.sort((a, b) => a - b).at(0);
 };
 
-console.log("P1", part1(data));
+runner((input) => {
+  const data = input
+    .at(0)
+    .split(",")
+    .map((e) => parseInt(e));
+
+  return part1(data);
+}, "./2021/day7/input.txt");
