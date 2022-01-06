@@ -1,13 +1,5 @@
 import { runner } from "../../utils";
 
-function factorial(n: number) {
-  let sum = 0;
-  for (let i = 1; i <= n; i++) {
-    sum += i;
-  }
-  return sum;
-}
-
 // P1
 const part1 = (data: number[]) => {
   const dataSorted = [...data].sort((a, b) => a - b);
@@ -31,7 +23,7 @@ runner((input) => {
     .map((e) => parseInt(e));
 
   return part1(data);
-}, "./2021/day7/input.txt");
+}, "./2021/day7/input.txt", 'time p1');
 
 const part2 = (data: number[]) => {
   const dataSorted = [...data].sort((a, b) => a - b);
@@ -42,10 +34,10 @@ const part2 = (data: number[]) => {
 
   for (let i = 0; i <= range; i++) {
     data.forEach((el) => {
-      results[i] += factorial(Math.abs(el - i));
+      const n = Math.abs(el - i);
+      results[i] += n * (n + 1) / 2;
     });
   }
-  console.log(results.sort((a, b) => a - b));
   return results.sort((a, b) => a - b).at(0);
 };
 
@@ -56,4 +48,4 @@ runner((input) => {
     .map((e) => parseInt(e));
 
   return part2(data);
-}, "./2021/day7/input.txt");
+}, "./2021/day7/input.txt", 'time p2');
