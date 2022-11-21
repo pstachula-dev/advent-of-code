@@ -8,7 +8,11 @@
 
 Requirements: Nodejs 12+
 
-Inside root directory run:
+1. Install dependencies
+```
+npm i
+```
+2. Inside root directory run:
 
 ```
 npx ts-node 2021/day2
