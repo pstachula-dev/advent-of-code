@@ -4,11 +4,10 @@ import { runner, splitIntoGroups } from "../../lib/utils";
 runner({
   path: "./2022/day1/input.txt",
   callback: (input) => {
-    const data = splitIntoGroups({
+    const data = splitIntoGroups<number>({
       input,
-      toNumber: true
-      // FIXME: casting type
-    }) as number[][];
+      parser: (e) => Number(e)
+    });
 
     return Math.max(...data.map((group) => group.reduce((a, b) => a + b, 0)))
   },
@@ -20,12 +19,12 @@ runner({
   callback: (input) => {
     const data = splitIntoGroups({
       input,
-      toNumber: true
-    }) as number[][];
+      parser: (e) => Number(e)
+    });
 
     return data
       .map((group) => group.reduce((a, b) => a + b, 0))
-      .sort((a , b) => b -a)
+      .sort((a , b) => b - a)
       .splice(0 ,3)
       .reduce((a, b) => a + b, 0);
   },

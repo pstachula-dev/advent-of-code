@@ -20,47 +20,49 @@ export const runner = async ({
     splitChar?: SplitChar;
   }) => {
   const data = await readInput({ path, limit, splitChar });
-  console.time(label)
-  console.log(callback(data));
-  console.timeEnd(label)
+  performance.mark(`${label}-start`);
+  console.log('Result:', callback(data));
+  performance.mark(`${label}-stop`);
+  console.log('Bench:', performance.measure("Time", `${label}-start`, `${label}-stop`).duration, 'ms');
 }
 
-export const splitToFlatArray = ({ 
+export const splitToFlatArray = <T extends string | number>({ 
     input,
     splitChar = "\n",
-    toNumber = false,
-    limit = Infinity
+    limit = Infinity,
+    parser = (e) => e as T,
   } : { 
     input: string;
     splitChar?: SplitChar;
     toNumber?: boolean;
     limit?: number
+    parser?: (data: string) => T
   }) => {  
   return input
     .split(splitChar)
-    .map(el => toNumber ? Number(el) : el)
+    .map(parser)
     .slice(0, limit);
 }
 
-export const splitIntoGroups = ({ 
+export const splitIntoGroups = <T extends string | number>({ 
     input,
     splitGroupChar = "\n\n",
     splitChar = "\n",
-    toNumber = false,
-    limit = Infinity
+    limit = Infinity,
+    parser = (e) => e as T
   } : { 
     input: string;
     splitGroupChar?: SplitChar;
     splitChar?: SplitChar;
-    toNumber?: boolean;
     limit?: number
+    parser?: (data: string) => T
 }) => {  
   return input
     .split(splitGroupChar)
     .map(el => {
       return el
         .split(splitChar)
-        .map(e => toNumber ? Number(e) : e)
+        .map(parser)
         .slice(0, limit);
     });
 }
