@@ -1,7 +1,9 @@
 # Advent of code time!
 
 > 2020 - 5/25
-> 2021 - 8/25... in progress
+>
+> 2021 - 8/25
+>
 > 2022 - 1/25... in progress
 
 ### How to run code:

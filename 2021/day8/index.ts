@@ -1,18 +1,17 @@
-import { runner } from "../../legacy/utils";
+import { runner } from '../../legacy/utils';
 
 const segments = {
   zero: 6,
-  one: 2,     // unique
+  one: 2, // unique
   two: 5,
   three: 5,
-  four: 4,    // unique
+  four: 4, // unique
   five: 5,
   six: 6,
-  seven: 3,   // unique
-  eight: 7,   // unique
-  nine: 6
+  seven: 3, // unique
+  eight: 7, // unique
+  nine: 6,
 };
-
 
 const segmentsArr = Object.values(segments);
 
@@ -20,20 +19,24 @@ const segmentsArr = Object.values(segments);
 const part1 = (data: string[]) => {
   let result = 0;
 
-  data.forEach(line => {
-    line.split(' ').forEach(word => {
-      if (segmentsArr.includes(word.length)) result++
+  data.forEach((line) => {
+    line.split(' ').forEach((word) => {
+      if (segmentsArr.includes(word.length)) result++;
     });
   });
 
   return result;
 };
 
-runner((input) => {
-  const data = input.map((e) => e.split(' | ')[1]);  
+runner(
+  (input) => {
+    const data = input.map((e) => e.split(' | ')[1]);
 
-  return part1(data);
-}, "./2021/day8/input.txt", 'time p1');
+    return part1(data);
+  },
+  './2021/day8/input.txt',
+  'time p1',
+);
 
 // 0:      1:      2:      3:      4:
 //  aaaa    ....    aaaa    aaaa    ....
@@ -53,29 +56,27 @@ runner((input) => {
 // .    f  e    f  .    f  e    f  .    f
 //  gggg    gggg    ....    gggg    gggg
 
-
 // 0/6/9
 
 // acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |
 // cdfeb fcadb cdfeb cdbaf
 
-//  5:     
-//  ..d..   
+//  5:
+//  ..d..
 // .    be.  <--- 2 B
-// .gc    .  
-//  ..gc..   
-// .    .be  
-// .af    .  
-//  ..af..   
+// .gc    .
+//  ..gc..
+// .    .be
+// .af    .
+//  ..af..
 
-//  0aaa 
+//  0aaa
 // 1    2
 // b    c
-//  3ddd 
+//  3ddd
 // 4    5
 // e    f
-//  6ggg 
-
+//  6ggg
 
 const numberSegments = {
   1: { 2: null, 5: null },
@@ -87,7 +88,7 @@ const numberSegments = {
   7: { 0: null, 2: null, 5: null },
   8: { 0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null },
   9: { 0: null, 1: null, 2: null, 3: null, 5: null, 6: null },
-}
+};
 
 const currentSegment = {
   0: '',
@@ -97,7 +98,7 @@ const currentSegment = {
   4: '',
   5: '',
   6: '',
-}
+};
 
 // 1 -> 7
 // 4 -> 8
@@ -118,30 +119,39 @@ const currentSegment = {
 // fdgacbe - 8
 // cefdb - 3
 // cefbgd  - 9
-// gcbe - 4 
+// gcbe - 4
 
 // const uniqueue = [2,4,3,7];
 
 const replaceWord = (original: string, segment: string) => {
   const segmentChars = segment.split('');
-  return original.split('').filter(char => !segmentChars.includes(char)).join('');
-}
+  return original
+    .split('')
+    .filter((char) => !segmentChars.includes(char))
+    .join('');
+};
 
 const crossWord = (words: string[], segment: string) => {
-  return words.find(word => segment.split('').every(char => word.split('').includes(char)));
-}
+  return words.find((word) =>
+    segment.split('').every((char) => word.split('').includes(char)),
+  );
+};
 
 const notCrossWord = (words: string[], segment: string) => {
   const segmentWords = segment.split('');
-  return words.find(word => segmentWords.filter(char => word.split('').includes(char))).length != segmentWords.length;
-}
+  return (
+    words.find((word) =>
+      segmentWords.filter((char) => word.split('').includes(char)),
+    ).length != segmentWords.length
+  );
+};
 
 // P2 =================================================================================
 const part2 = (data: string[][]) => {
-  let finalResult = 0;
-  
+  const finalResult = 0;
+
   for (const row of data) {
-    let result = '';  
+    const result = '';
     const [first, second] = row;
 
     const words = first.split(' ');
@@ -164,11 +174,14 @@ const part2 = (data: string[][]) => {
     currentSegment[1] = fourRest;
     currentSegment[3] = fourRest;
     currentSegment[2] = currentSegment[2];
-    currentSegment[5] = currentSegment[2];  
+    currentSegment[5] = currentSegment[2];
 
     // Find 8
     const eight = words.find(({ length }) => length === 7);
-    const eightRest = replaceWord(eight, Object.values(currentSegment).join(''));
+    const eightRest = replaceWord(
+      eight,
+      Object.values(currentSegment).join(''),
+    );
     currentSegment[4] = eightRest;
     currentSegment[6] = eightRest;
 
@@ -176,14 +189,13 @@ const part2 = (data: string[][]) => {
     const twoThreeFive = words.filter(({ length }) => length === 5);
     const three = crossWord(twoThreeFive, seven);
     const two = notCrossWord(twoThreeFive, seven);
-    const five = twoThreeFive.find(e => ![three, two].includes(e))
-
+    const five = twoThreeFive.find((e) => ![three, two].includes(e));
 
     // Find 0/6/9
     const zeroSixNine = words.filter(({ length }) => length === 6);
     const nine = crossWord(zeroSixNine, one);
     const six = notCrossWord(zeroSixNine, one);
-    const zero = zeroSixNine.find(e => ![six, nine].includes(e))
+    const zero = zeroSixNine.find((e) => ![six, nine].includes(e));
 
     console.log(six, nine);
     const numbersCode2 = {
@@ -197,7 +209,7 @@ const part2 = (data: string[][]) => {
       [eight]: 8,
       [nine]: 9,
       [zero]: 0,
-    }; 
+    };
     console.log(numbersCode2);
 
     // const numbersCode = {
@@ -211,7 +223,7 @@ const part2 = (data: string[][]) => {
     //   [eight.split('').sort().join('')]: 8,
     //   [nine.split('').sort().join('')]: 9,
     //   [zero.split('').sort().join('')]: 0,
-    // }; 
+    // };
 
     // second.split(' ').forEach(word => {
     //   result += numbersCode[word.split('').sort().join('')];
@@ -225,6 +237,10 @@ const part2 = (data: string[][]) => {
   return 1;
 };
 
-runner((input) => {
-  return part2(input.splice(0, 1).map((e) => e.split(' | ')));
-}, "./2021/day8/input.txt", 'time p2');
+runner(
+  (input) => {
+    return part2(input.splice(0, 1).map((e) => e.split(' | ')));
+  },
+  './2021/day8/input.txt',
+  'time p2',
+);

@@ -1,4 +1,6 @@
-import { runner } from "../../legacy/utils";
+/* eslint-disable */
+// @ts-nocheck
+import { runner } from '../../legacy/utils';
 
 interface Point {
   x: string;
@@ -16,10 +18,10 @@ const createMatrix = (size: number): Matrix<number> =>
 const parsePoints = (data: string[]) =>
   data.map((el) => {
     return el
-      .replace(/[->]+/g, "")
-      .split("  ")
+      .replace(/[->]+/g, '')
+      .split('  ')
       .map((el) => {
-        const [x, y] = el.split(",");
+        const [x, y] = el.split(',');
         return { x, y };
       });
   });
@@ -50,4 +52,4 @@ runner((text) => {
   const data = parsePoints(text);
   const matrix = createMatrix(10);
   return part1({ data, matrix });
-}, "./2021/day5/input.txt");
+}, './2021/day5/input.txt');

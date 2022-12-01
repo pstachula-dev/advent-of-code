@@ -1,4 +1,4 @@
-import { runner } from "../../legacy/utils";
+import { runner } from '../../legacy/utils';
 
 const MIN_STATE = 0;
 const MAX_STATE = 6;
@@ -7,7 +7,7 @@ const DAYS = 18;
 
 // P1
 const part1 = (initData: number[]) => {
-  let result = new Map<string, number>(Object.entries(initData));
+  const result = new Map<string, number>(Object.entries(initData));
 
   for (let i = 0; i < DAYS; i++) {
     result.forEach((el, index) => {
@@ -22,7 +22,7 @@ const part1 = (initData: number[]) => {
 };
 
 runner((input) => {
-  const data = input[0].split(",").map((e) => parseInt(e));
+  const data = input[0].split(',').map((e) => parseInt(e));
 
   return part1(data);
-}, "./2021/day6/input.txt");
+}, './2021/day6/input.txt');

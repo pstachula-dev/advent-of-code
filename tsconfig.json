@@ -4,5 +4,7 @@
         "target": "ESNext",
         "allowJs": true,
         "strict": true
-    }
+    },
+    "include": ["**/*", ".eslintrc.js"],
+    "exclude": ["node_modules"]
 }

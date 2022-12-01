@@ -1,11 +1,11 @@
-import { runner } from "../../legacy/utils";
+import { runner } from '../../legacy/utils';
 
 type Position = string[][];
 
 enum POSITION {
-  forward = "forward",
-  down = "down",
-  up = "up",
+  forward = 'forward',
+  down = 'down',
+  up = 'up',
 }
 
 // P1
@@ -34,8 +34,8 @@ const part1 = (data: Position) => {
 };
 
 runner((input) => {
-  return part1(input.map((el) => el.split(" ")));
-}, "./2021/day2/input.txt");
+  return part1(input.map((el) => el.split(' ')));
+}, './2021/day2/input.txt');
 
 // P2
 const part2 = (data: Position) => {
@@ -65,6 +65,6 @@ const part2 = (data: Position) => {
 };
 
 runner((input) => {
-  const data = input.map((el) => el.split(" "));
+  const data = input.map((el) => el.split(' '));
   return part2(data);
-}, "./2021/day2/input.txt");
+}, './2021/day2/input.txt');
