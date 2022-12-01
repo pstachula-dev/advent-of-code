@@ -1,4 +1,4 @@
-import { runner } from "../../utils";
+import { runner } from "../../legacy/utils";
 
 // P1
 const part1 = (data: number[]) => {

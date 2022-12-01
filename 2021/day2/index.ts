@@ -1,4 +1,4 @@
-import { runner } from "../../utils";
+import { runner } from "../../legacy/utils";
 
 type Position = string[][];
 

@@ -1,4 +1,4 @@
-import { runner } from "../../utils";
+import { runner } from "../../legacy/utils";
 
 const getCol = (matrix, rowIndex) => {
   const col = [];

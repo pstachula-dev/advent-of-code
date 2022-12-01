@@ -17,7 +17,7 @@ runner({
 runner({
   path: "./2022/day1/input.txt",
   callback: (input) => {
-    const data = splitIntoGroups({
+    const data = splitIntoGroups<number>({
       input,
       parser: (e) => Number(e)
     });

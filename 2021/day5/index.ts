@@ -1,4 +1,4 @@
-import { runner } from "../../utils";
+import { runner } from "../../legacy/utils";
 
 interface Point {
   x: string;

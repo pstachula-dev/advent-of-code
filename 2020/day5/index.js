@@ -1,4 +1,4 @@
-import { readInput } from "../../utils";
+import { readInput } from "../../legacy/utils";
 
 const data = await readInput("./2020/day5/input.js");
 

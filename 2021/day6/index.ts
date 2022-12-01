@@ -1,4 +1,4 @@
-import { runner } from "../../utils";
+import { runner } from "../../legacy/utils";
 
 const MIN_STATE = 0;
 const MAX_STATE = 6;
