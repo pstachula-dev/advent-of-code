@@ -8,3 +8,7 @@ export const runner = async (callback: (arg: string[]) => void, path: string, la
   console.log(callback(await readInput(path, limit, splitChar)));
   console.timeEnd(label)
 }
+
+export const splitIntoGroups = ({ input, splitChar = "\n" }: { input: string[], splitChar: string }) => {  
+  return input.map(el => el.split(splitChar));
+}
