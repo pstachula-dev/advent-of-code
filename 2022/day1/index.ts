@@ -4,7 +4,7 @@ import { runner, splitIntoGroups } from "../../lib/utils";
 runner({
   path: "./2022/day1/input.txt",
   callback: (input) => {
-    const data = splitIntoGroups<number>({
+    const data = splitIntoGroups({
       input,
       parser: (e) => Number(e)
     });
@@ -17,7 +17,7 @@ runner({
 runner({
   path: "./2022/day1/input.txt",
   callback: (input) => {
-    const data = splitIntoGroups<number>({
+    const data = splitIntoGroups({
       input,
       parser: (e) => Number(e)
     });

@@ -26,7 +26,7 @@ export const runner = async ({
   console.log('Bench:', performance.measure("Time", `${label}-start`, `${label}-stop`).duration, 'ms');
 }
 
-export const splitToFlatArray = <T extends string | number>({ 
+export const splitToFlatArray = <T extends string | number = string>({ 
     input,
     splitChar = "\n",
     limit = Infinity,
@@ -36,7 +36,7 @@ export const splitToFlatArray = <T extends string | number>({
     splitChar?: SplitChar;
     toNumber?: boolean;
     limit?: number
-    parser?: (data: string) => T
+    parser: (data: string) => T
   }) => {  
   return input
     .split(splitChar)
@@ -44,7 +44,7 @@ export const splitToFlatArray = <T extends string | number>({
     .slice(0, limit);
 }
 
-export const splitIntoGroups = <T extends string | number>({ 
+export const splitIntoGroups = <T extends string | number = string>({ 
     input,
     splitGroupChar = "\n\n",
     splitChar = "\n",
