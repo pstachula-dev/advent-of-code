@@ -1,6 +1,6 @@
 import { promises } from 'fs';
 
-export type SplitChar = '\n' | '\n\n';
+export type SplitChar = '\n' | '\n\n' | ' ';
 
 export const runner = async ({
   solution,
@@ -32,7 +32,7 @@ export const splitToFlatArray = <T extends string | number = string>({
   input: string;
   splitChar?: SplitChar;
   limit?: number;
-  parser: (data: string) => T;
+  parser?: (data: string) => T;
 }) => {
   return input.split(splitChar).map(parser).slice(0, limit);
 };
@@ -52,5 +52,6 @@ export const splitIntoGroups = <T extends string | number = string>({
 }) => {
   return input
     .split(splitGroupChar)
-    .map((el) => splitToFlatArray({ input: el, parser, limit, splitChar }));
+    .splice(0, limit)
+    .map((el) => splitToFlatArray({ input: el, parser, splitChar }));
 };
