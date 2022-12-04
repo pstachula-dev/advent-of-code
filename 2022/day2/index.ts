@@ -73,7 +73,7 @@ const elfSecondStrategy = (left: string, right: string) => {
 
 // Part 1
 runner({
-  path: './2022/day2/input.txt',
+  path: `${__dirname}/input.txt`,
   solution: (input) => {
     return splitIntoGroups({
       input,
@@ -87,7 +87,7 @@ runner({
 
 // Part 2
 runner({
-  path: './2022/day2/input.txt',
+  path: `${__dirname}/input.txt`,
   solution: (input) => {
     return splitIntoGroups({
       input,

@@ -2,7 +2,7 @@ import { runner, splitIntoGroups } from '../../lib/utils';
 
 // Part 1
 runner({
-  path: './2022/day1/input.txt',
+  path: `${__dirname}/input.txt`,
   solution: (input) => {
     const data = splitIntoGroups({
       input,
@@ -15,7 +15,7 @@ runner({
 
 // Part 2
 runner({
-  path: './2022/day1/input.txt',
+  path: `${__dirname}/input.txt`,
   solution: (input) => {
     const data = splitIntoGroups({
       input,
