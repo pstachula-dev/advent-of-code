@@ -1,8 +1,8 @@
-import { runner, splitIntoGroups } from '../../lib/utils';
+import { INPUT_PATH, runner, splitIntoGroups } from '../../lib/utils';
 
 // Part 1
 runner({
-  path: `${__dirname}/input.txt`,
+  path: `${__dirname}/${INPUT_PATH}`,
   solution: (input) => {
     const data = splitIntoGroups({
       input,
@@ -15,7 +15,7 @@ runner({
 
 // Part 2
 runner({
-  path: `${__dirname}/input.txt`,
+  path: `${__dirname}/${INPUT_PATH}`,
   solution: (input) => {
     const data = splitIntoGroups({
       input,
