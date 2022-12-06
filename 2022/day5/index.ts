@@ -1,4 +1,3 @@
-import { parseInt } from 'lodash';
 import { INPUT_PATH, runner, splitIntoGroups } from '../../lib/utils';
 
 const path = `${__dirname}/${INPUT_PATH}`;
