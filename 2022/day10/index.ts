@@ -1,9 +1,4 @@
-import {
-  INPUT_PATH,
-  runner,
-  splitIntoGroups,
-  splitToFlatArray,
-} from '../../lib/utils';
+import { INPUT_PATH, runner, splitToFlatArray } from '../../lib/utils';
 
 const path = `${__dirname}/${INPUT_PATH}`;
 
@@ -16,39 +11,42 @@ runner({
     const result: number[] = [];
     let cyclesTotal = 0;
     let sum = 1;
-    const data = splitToFlatArray({ input }).map((el) => {
-      const [register, value] = el.split(' ');
-      return {
-        register: register as REGISTER,
-        value: parseInt(value),
-      };
-    });
 
     const setSignal = (cyclesTotal: number, sum: number, result: number[]) => {
       if ((cyclesTotal - 20) % 40 === 0) {
-        result.push(sum);
+        result.push(sum * (20 + result.length * 40));
       }
     };
 
-    for (let index = 0; index < data.length; index++) {
-      const el = data[index];
-      setSignal(cyclesTotal, sum, result);
+    splitToFlatArray({ input })
+      .map((el) => {
+        const [register, value] = el.split(' ');
+        return {
+          register: register as REGISTER,
+          value: parseInt(value),
+        };
+      })
+      .forEach(({ register, value }) => {
+        setSignal(cyclesTotal, sum, result);
 
-      if (el.register === 'noop') cyclesTotal += 1;
+        switch (register) {
+          case 'noop': {
+            cyclesTotal += 1;
+            break;
+          }
 
-      if (el.register === 'addx') {
-        for (let j = 0; j < 2; j++) {
-          cyclesTotal += 1;
-          setSignal(cyclesTotal, sum, result);
-          if (j === 1) sum += el.value;
+          case 'addx': {
+            for (let j = 0; j < 2; j++) {
+              cyclesTotal += 1;
+              setSignal(cyclesTotal, sum, result);
+              if (j === 1) sum += value;
+            }
+            break;
+          }
         }
-      }
-    }
+      });
 
-    return result
-      .slice(0, 6)
-      .map((el, index) => el * (20 + index * 40))
-      .reduce((prev, curr) => prev + curr, 0);
+    return result.slice(0, 6).reduce((prev, curr) => prev + curr, 0);
   },
 });
 
@@ -56,48 +54,38 @@ runner({
 runner({
   path,
   solution: (input) => {
-    let cyclesTotal = 0;
     const screen: string[][] = [];
+    let line: string[] = [];
+    let currPos = 1;
 
-    const data = splitToFlatArray({ input }).map((el) => {
-      const [register, value] = el.split(' ');
+    const setSignal = () => {
+      const diff = line.length - currPos;
+      line.push(diff < 2 && diff >= -1 ? '#' : ' ');
 
-      return {
-        register: register as REGISTER,
-        value: parseInt(value),
-      };
-    });
-
-    const setSignal = (
-      cyclesTotal: number,
-      line: string[],
-      screen: string[][],
-      sprite: string[],
-    ) => {
-      cyclesTotal;
-
-      // if ((cyclesTotal - 20) % 40 === 0) {
-      // }
+      if (line.length % 40 === 0) {
+        screen.push(line);
+        line = [];
+      }
     };
 
-    const sprite: string[] = ['#', '#', '#'];
-    const line: string[] = [];
-
-    for (let index = 0; index < data.length; index++) {
-      const el = data[index];
-      setSignal(cyclesTotal, line, screen, sprite);
-
-      if (el.register === 'noop') cyclesTotal += 1;
-
-      if (el.register === 'addx') {
-        for (let j = 0; j < 2; j++) {
-          cyclesTotal += 1;
-          setSignal(cyclesTotal, line, screen, sprite);
+    splitToFlatArray({ input })
+      .map((el) => {
+        const [register, value] = el.split(' ');
+        return {
+          register: register as REGISTER,
+          value: parseInt(value),
+        };
+      })
+      .forEach(({ register, value }) => {
+        setSignal();
+        if (register === 'addx') {
+          setSignal();
+          for (let j = 0; j < 2; j++) {
+            if (j === 1) currPos += value;
+          }
         }
-      }
-    }
+      });
 
-    console.log(screen.map((line) => line.join('')).join('\n'));
-    return 0;
+    return screen.map((el) => el.join(''));
   },
 });
