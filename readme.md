@@ -11,9 +11,11 @@
 Requirements: Nodejs 12+
 
 1. Install dependencies
+
 ```
 npm i
 ```
+
 2. Inside root directory run:
 
 ```
