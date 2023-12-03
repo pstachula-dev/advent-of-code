@@ -22,6 +22,11 @@ func UtilReadFile(filename string) []string {
 	return res
 }
 
+func StrIsInt(s string) bool {
+	_, err := strconv.Atoi(s)
+	return err == nil
+}
+
 func StrToInt(s string) int {
 	res, err := strconv.Atoi(string(s))
 
