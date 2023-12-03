@@ -8,8 +8,10 @@ import {
 
 const path = `${__dirname}/${INPUT_PATH}`;
 
+const GEAR = '*';
+const DOT = '.';
 const hasSymbol = (chars: string[]) =>
-  chars.some((char) => char && char !== '.' && !isNumber(char));
+  chars.some((char) => char && char !== DOT && !isNumber(char));
 
 // Part 1
 runner({
@@ -18,14 +20,14 @@ runner({
     const data = splitToFlatArray({ input });
     let result = 0;
 
-    data.forEach((rowStr, rowIdx) => {
-      const row = [...rowStr];
+    data.forEach((row, rowIdx) => {
       let numberPart = '';
       let hasEngineSymbol = false;
 
-      row.forEach((char, colIdx) => {
+      [...row].forEach((char, colIdx) => {
         if (isNumber(char)) {
           numberPart += char;
+
           if (!hasEngineSymbol) {
             hasEngineSymbol = hasSymbol([
               data[rowIdx][colIdx - 1],
@@ -42,7 +44,7 @@ runner({
 
         const nextChar = row[colIdx + 1];
         const isNextWord =
-          (['.', undefined].includes(nextChar) || !isNumber(nextChar)) &&
+          ([DOT, undefined].includes(nextChar) || !isNumber(nextChar)) &&
           numberPart.length;
 
         if (isNextWord) {
@@ -57,7 +59,7 @@ runner({
   },
 });
 
-const hasGear = (chars: string[]) => chars.some((char) => char === '*');
+const hasGear = (chars: string[]) => chars.some((char) => char === GEAR);
 
 // Part 2
 runner({
@@ -68,13 +70,12 @@ runner({
     const gears: number[][] = [];
     const valuesPos: { pos: number[]; val: number }[] = [];
 
-    data.forEach((rowStr, rowIdx) => {
-      const row = [...rowStr];
+    data.forEach((row, rowIdx) => {
       let numberPart = '';
       let hasEngineSymbol = false;
 
-      row.forEach((char, colIdx) => {
-        if (char === '*') {
+      [...row].forEach((char, colIdx) => {
+        if (char === GEAR) {
           gears.push([rowIdx, colIdx]);
         }
 
@@ -103,7 +104,7 @@ runner({
 
         const nextChar = row[colIdx + 1];
         const isNextWord =
-          (['.', undefined].includes(nextChar) || !isNumber(nextChar)) &&
+          ([DOT, undefined].includes(nextChar) || !isNumber(nextChar)) &&
           numberPart.length;
 
         if (isNextWord) {
@@ -123,7 +124,7 @@ runner({
       );
 
       if (values.length > 1) {
-        result += values.map(({ val }) => val).reduce((a, b) => a * b, 1);
+        result += values[0].val * values[1].val;
       }
     }
 
