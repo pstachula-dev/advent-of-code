@@ -15,14 +15,10 @@ export const runner = async ({
   splitChar?: SplitChar;
 }) => {
   const data = await promises.readFile(path, 'utf8');
-  performance.mark('time-start');
+  const t0 = performance.now();
   console.log('Result:', solution(data));
-  performance.mark('time-stop');
-  console.log(
-    'Bench:',
-    performance.measure('Time', 'time-start', 'time-stop').duration,
-    'ms',
-  );
+  const t1 = performance.now();
+  console.log('Bench:', `Time ${t1 - t0}`, 'ms');
 };
 
 export const splitToFlatArray = <T extends string | number = string>({
@@ -36,7 +32,7 @@ export const splitToFlatArray = <T extends string | number = string>({
   limit?: number;
   parser?: (data: string) => T;
 }) => {
-  return input.split(splitChar).map(parser).slice(0, limit);
+  return input.split(splitChar).map(parser).slice(0, limit).filter(Boolean);
 };
 
 export const splitIntoGroups = <T extends string | number = string>({
