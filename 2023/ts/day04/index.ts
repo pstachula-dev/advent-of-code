@@ -35,7 +35,7 @@ runner({
   solution: (input) => {
     const data = splitToFlatArray({ input });
 
-    type Game = { winners: number[]; scores: number[] };
+    type Game = { winners: string[]; scores: string[] };
     let result = 0;
     const games: Game[] = [];
 
@@ -43,14 +43,8 @@ runner({
       const [, scores] = line.split(':');
       const [winner, score] = scores.split('|');
       games.push({
-        winners: winner
-          .split(' ')
-          .filter((c) => c !== '')
-          .map(Number),
-        scores: score
-          .split(' ')
-          .filter((c) => c !== '')
-          .map(Number),
+        winners: winner.split(' ').filter((c) => c !== ''),
+        scores: score.split(' ').filter((c) => c !== ''),
       });
     });
 
@@ -61,8 +55,6 @@ runner({
       const idx = games.indexOf(curr);
       let matchCount = 0;
 
-      result += 1;
-
       curr?.scores.forEach((el) => {
         if (curr.winners.includes(el)) {
           matchCount += 1;
@@ -72,6 +64,7 @@ runner({
       for (let i = 0; i < matchCount; i++) {
         queue.push(games[idx + i + 1]);
       }
+      result += 1;
     }
 
     return `2: ${result}`;
