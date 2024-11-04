@@ -25,7 +25,7 @@ npx ts-node 2021/day2
 or
 
 ```
-bun 2023/day04/index.ts
+bun 2023/ts/day04/index.ts
 ```
 
 More info: https://adventofcode.com/

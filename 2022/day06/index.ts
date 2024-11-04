@@ -1,4 +1,3 @@
-import { uniq } from 'lodash';
 import { INPUT_PATH, runner, splitToFlatArray, sum } from '../../lib/utils';
 
 const path = `${__dirname}/${INPUT_PATH}`;

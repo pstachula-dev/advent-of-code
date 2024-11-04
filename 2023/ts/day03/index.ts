@@ -1,4 +1,3 @@
-import { has } from 'lodash';
 import {
   INPUT_PATH,
   runner,
