@@ -24,11 +24,10 @@ const firstPart = (movesStr: string, data: string[]) => {
       movesQueue = [...moves];
     }
 
-    const move = movesQueue.shift();
     const keys = children.get(current);
 
-    if (keys && move) {
-      current = keys[move === 'R' ? 1 : 0];
+    if (keys) {
+      current = keys[movesQueue.shift() === 'R' ? 1 : 0];
       iterations++;
     }
   }
@@ -61,11 +60,10 @@ const secondPart = (movesStr: string, data: string[]) => {
         movesQueue = [...moves];
       }
 
-      const move = movesQueue.shift();
       const keys = children.get(current);
 
-      if (keys && move) {
-        current = keys[move === 'R' ? 1 : 0];
+      if (keys) {
+        current = keys[movesQueue.shift() === 'R' ? 1 : 0];
         steps++;
       }
     }
