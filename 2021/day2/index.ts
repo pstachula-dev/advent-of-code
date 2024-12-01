@@ -33,8 +33,8 @@ const part1 = (data: Position) => {
   return depth * horizontal;
 };
 
-runner((input) => {
-  return part1(input.map((el) => el.split(' ')));
+runner(input => {
+  return part1(input.map(el => el.split(' ')));
 }, './2021/day2/input.txt');
 
 // P2
@@ -64,7 +64,7 @@ const part2 = (data: Position) => {
   return depth * horizontal;
 };
 
-runner((input) => {
-  const data = input.map((el) => el.split(' '));
+runner(input => {
+  const data = input.map(el => el.split(' '));
   return part2(data);
 }, './2021/day2/input.txt');

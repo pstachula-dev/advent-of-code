@@ -25,5 +25,5 @@ export const splitIntoGroups = ({
   input: string[];
   splitChar: string;
 }) => {
-  return input.map((el) => el.split(splitChar));
+  return input.map(el => el.split(splitChar));
 };

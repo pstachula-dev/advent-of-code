@@ -19,8 +19,8 @@ const segmentsArr = Object.values(segments);
 const part1 = (data: string[]) => {
   let result = 0;
 
-  data.forEach((line) => {
-    line.split(' ').forEach((word) => {
+  data.forEach(line => {
+    line.split(' ').forEach(word => {
       if (segmentsArr.includes(word.length)) result++;
     });
   });
@@ -29,8 +29,8 @@ const part1 = (data: string[]) => {
 };
 
 runner(
-  (input) => {
-    const data = input.map((e) => e.split(' | ')[1]);
+  input => {
+    const data = input.map(e => e.split(' | ')[1]);
 
     return part1(data);
   },
@@ -127,21 +127,21 @@ const replaceWord = (original: string, segment: string) => {
   const segmentChars = segment.split('');
   return original
     .split('')
-    .filter((char) => !segmentChars.includes(char))
+    .filter(char => !segmentChars.includes(char))
     .join('');
 };
 
 const crossWord = (words: string[], segment: string) => {
-  return words.find((word) =>
-    segment.split('').every((char) => word.split('').includes(char)),
+  return words.find(word =>
+    segment.split('').every(char => word.split('').includes(char)),
   );
 };
 
 const notCrossWord = (words: string[], segment: string) => {
   const segmentWords = segment.split('');
   return (
-    words.find((word) =>
-      segmentWords.filter((char) => word.split('').includes(char)),
+    words.find(word =>
+      segmentWords.filter(char => word.split('').includes(char)),
     ).length != segmentWords.length
   );
 };
@@ -189,13 +189,13 @@ const part2 = (data: string[][]) => {
     const twoThreeFive = words.filter(({ length }) => length === 5);
     const three = crossWord(twoThreeFive, seven);
     const two = notCrossWord(twoThreeFive, seven);
-    const five = twoThreeFive.find((e) => ![three, two].includes(e));
+    const five = twoThreeFive.find(e => ![three, two].includes(e));
 
     // Find 0/6/9
     const zeroSixNine = words.filter(({ length }) => length === 6);
     const nine = crossWord(zeroSixNine, one);
     const six = notCrossWord(zeroSixNine, one);
-    const zero = zeroSixNine.find((e) => ![six, nine].includes(e));
+    const zero = zeroSixNine.find(e => ![six, nine].includes(e));
 
     console.log(six, nine);
     const numbersCode2 = {
@@ -238,8 +238,8 @@ const part2 = (data: string[][]) => {
 };
 
 runner(
-  (input) => {
-    return part2(input.splice(0, 1).map((e) => e.split(' | ')));
+  input => {
+    return part2(input.splice(0, 1).map(e => e.split(' | ')));
   },
   './2021/day8/input.txt',
   'time p2',

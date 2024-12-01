@@ -10,7 +10,7 @@ const parseMonkey = (row: string[]) => {
     items: items
       .split(' ')
       .slice(4)
-      .map((e) => parseInt(e, 10)),
+      .map(e => parseInt(e, 10)),
     op: operation.split(' ').slice(5),
     test: parseInt(test.split(' ')[5], 10),
     ifTrue: parseInt(ifTrue.split(' ')[9], 10),
@@ -30,7 +30,7 @@ const monkeysInspector = (input: string, limit: number, divider?: number) => {
       const val1 = op[0];
       const val2 = op[2];
 
-      items.map((val) => {
+      items.map(val => {
         monkeysInspected[mStr]
           ? monkeysInspected[mStr]++
           : (monkeysInspected[mStr] = 1);
@@ -57,11 +57,11 @@ const monkeysInspector = (input: string, limit: number, divider?: number) => {
 // Part 1
 runner({
   path,
-  solution: (input) => monkeysInspector(input, 20, 3),
+  solution: input => monkeysInspector(input, 20, 3),
 });
 
 // Part 2
 runner({
   path,
-  solution: (input) => monkeysInspector(input, 10_000),
+  solution: input => monkeysInspector(input, 10_000),
 });

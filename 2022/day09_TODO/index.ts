@@ -47,7 +47,7 @@ const printState = (
   head: Rope,
   clear = true,
 ) => {
-  stateProp = stateProp.map((row) => row.map((el) => (el = '.')));
+  stateProp = stateProp.map(row => row.map(el => (el = '.')));
   stateProp[tail.y][tail.x] = 'T';
   stateProp[head.y][head.x] = 'H';
   console.log(stateProp.flat());
@@ -62,8 +62,8 @@ const printState = (
 // Part 1
 runner({
   path,
-  solution: (input) => {
-    const moves = splitToFlatArray({ input }).map((e) => {
+  solution: input => {
+    const moves = splitToFlatArray({ input }).map(e => {
       const [move, value] = e.split(' ');
       return { move: move as MOVE, value: parseInt(value) };
     });
@@ -190,18 +190,17 @@ runner({
     console.log('=========> moveState <==========');
     console.log(moveState);
 
-    return moveState.map((row) => row.filter((el) => el === '#')).flat(2)
-      .length;
+    return moveState.map(row => row.filter(el => el === '#')).flat(2).length;
   },
 });
 
 // Part 2
 runner({
   path,
-  solution: (input) => {
+  solution: input => {
     const data = splitIntoGroups({
       input,
-      parser: (e) => Number(e),
+      parser: e => Number(e),
     });
 
     return 0;

@@ -6,7 +6,7 @@ const path = `${__dirname}/${INPUT_PATH}`;
 const computeSteps = (values: number[], backward: boolean) => {
   const rows: number[][] = [values];
 
-  while (rows.at(-1)?.some((row) => row !== 0)) {
+  while (rows.at(-1)?.some(row => row !== 0)) {
     const nextRow = [];
     const lastRow = rows.at(-1);
     if (!lastRow) break;
@@ -33,12 +33,12 @@ const computeSteps = (values: number[], backward: boolean) => {
 // Part 1
 runner({
   path,
-  solution: (input) => {
+  solution: input => {
     const values = input
       .split('\n')
       .slice(0, -1)
-      .map((line) => line.split(/\s+/).map(Number));
+      .map(line => line.split(/\s+/).map(Number));
 
-    return sum(values.map((el) => computeSteps(el, true)));
+    return sum(values.map(el => computeSteps(el, true)));
   },
 });

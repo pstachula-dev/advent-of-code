@@ -21,8 +21,8 @@ const part1 = (initData: number[]) => {
   return result.size;
 };
 
-runner((input) => {
-  const data = input[0].split(',').map((e) => parseInt(e));
+runner(input => {
+  const data = input[0].split(',').map(e => parseInt(e));
 
   return part1(data);
 }, './2021/day6/input.txt');

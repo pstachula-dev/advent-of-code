@@ -24,9 +24,9 @@ interface User {
 // <typeof users[0], typeof users[0][]>
 console.log(
   R.pipe(
-    R.filter<User>((x) => x.gender === 'f'),
-    R.map((x) => x),
-    R.groupBy((x) => x.gender),
+    R.filter<User>(x => x.gender === 'f'),
+    R.map(x => x),
+    R.groupBy(x => x.gender),
   )(users),
 );
 
@@ -34,8 +34,8 @@ const path = `${__dirname}/${INPUT_PATH}`;
 
 const findUniqueChar = (arrays: string[][]) => {
   const [firstArr, ...rest] = arrays;
-  const uniqueChar = firstArr.find((el) =>
-    rest.every((restEl) => restEl.includes(el)),
+  const uniqueChar = firstArr.find(el =>
+    rest.every(restEl => restEl.includes(el)),
   );
 
   const uniqueCharLower = (uniqueChar || '').toLocaleLowerCase();
@@ -48,9 +48,9 @@ const findUniqueChar = (arrays: string[][]) => {
 // Part 1 8298
 runner({
   path,
-  solution: (input) => {
+  solution: input => {
     return splitToFlatArray({ input })
-      .map((line) => {
+      .map(line => {
         const lineArr = line.split('');
         return findUniqueChar([
           lineArr.slice(0, line.length / 2),
@@ -64,11 +64,11 @@ runner({
 // Part 2 2708
 runner({
   path,
-  solution: (input) => {
+  solution: input => {
     return splitToFlatArray({ input })
       .map((_, i, arr) => (i % 3 === 0 ? arr.slice(i, i + 3) : []))
-      .filter((arr) => arr?.length > 0)
-      .map((arr) => arr.map((el) => el.split('')))
+      .filter(arr => arr?.length > 0)
+      .map(arr => arr.map(el => el.split('')))
       .map(findUniqueChar)
       .reduce(sum, 0);
   },

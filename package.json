@@ -4,7 +4,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.191",
+    "@types/lodash-es": "^4.17.12",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "eslint": "^8.12.0",
@@ -17,6 +17,7 @@
   "dependencies": {
     "@types/ramda": "^0.28.20",
     "lodash-es": "^4.17.21",
+    "mitata": "^1.0.10",
     "ramda": "^0.28.0",
     "remeda": "^1.3.0",
     "tsx": "^4.4.0"

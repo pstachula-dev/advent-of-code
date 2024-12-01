@@ -3,14 +3,14 @@ import { INPUT_PATH, runner, splitIntoGroups } from '../../lib/utils';
 // Part 1
 runner({
   path: `${__dirname}/${INPUT_PATH}`,
-  solution: (input) => {
+  solution: input => {
     return splitIntoGroups({
       input,
       splitGroupChar: '\n',
       splitChar: ',',
     }).filter(([left, right]) => {
-      const [firstStart, firstEnd] = left.split('-').map((e) => parseInt(e));
-      const [secondStart, secondEnd] = right.split('-').map((e) => parseInt(e));
+      const [firstStart, firstEnd] = left.split('-').map(e => parseInt(e));
+      const [secondStart, secondEnd] = right.split('-').map(e => parseInt(e));
 
       return (
         (firstStart <= secondStart && firstEnd >= secondEnd) ||
@@ -23,14 +23,14 @@ runner({
 // Part 2
 runner({
   path: `${__dirname}/${INPUT_PATH}`,
-  solution: (input) => {
+  solution: input => {
     return splitIntoGroups({
       input,
       splitGroupChar: '\n',
       splitChar: ',',
     }).filter(([left, right]) => {
-      const [firstStart, firstEnd] = left.split('-').map((e) => parseInt(e));
-      const [secondStart, secondEnd] = right.split('-').map((e) => parseInt(e));
+      const [firstStart, firstEnd] = left.split('-').map(e => parseInt(e));
+      const [secondStart, secondEnd] = right.split('-').map(e => parseInt(e));
 
       return firstStart <= secondEnd && firstEnd >= secondStart;
     }).length;

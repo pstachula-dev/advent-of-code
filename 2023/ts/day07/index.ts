@@ -21,7 +21,7 @@ const cardSortVal: Record<string, number> = {
 // Part 1
 runner({
   path,
-  solution: (input) => {
+  solution: input => {
     const cards: string[] = [];
     const values: number[] = [];
     const enum Type {
@@ -46,7 +46,7 @@ runner({
     input
       .split('\n')
       .filter(Boolean)
-      .forEach((line) => {
+      .forEach(line => {
         const [card, value] = line.split(' ');
         cards.push(card);
         values.push(Number(value));

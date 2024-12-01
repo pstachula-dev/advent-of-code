@@ -9,7 +9,7 @@ const part1 = (data: number[]) => {
   const results = new Array<number>(range).fill(0);
 
   for (let i = 0; i < range; i++) {
-    data.forEach((el) => {
+    data.forEach(el => {
       results[i] += Math.abs(el - i);
     });
   }
@@ -17,11 +17,11 @@ const part1 = (data: number[]) => {
 };
 
 runner(
-  (input) => {
+  input => {
     const data = input
       .at(0)
       .split(',')
-      .map((e) => parseInt(e));
+      .map(e => parseInt(e));
 
     return part1(data);
   },
@@ -37,7 +37,7 @@ const part2 = (data: number[]) => {
   const results = new Array<number>(range).fill(0);
 
   for (let i = 0; i <= range; i++) {
-    data.forEach((el) => {
+    data.forEach(el => {
       const n = Math.abs(el - i);
       results[i] += (n * (n + 1)) / 2;
     });
@@ -46,11 +46,11 @@ const part2 = (data: number[]) => {
 };
 
 runner(
-  (input) => {
+  input => {
     const data = input
       .at(0)
       .split(',')
-      .map((e) => parseInt(e));
+      .map(e => parseInt(e));
 
     return part2(data);
   },
