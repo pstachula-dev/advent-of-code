@@ -38,9 +38,9 @@ const horizontalCheck = (
 // Part 1
 runner({
   path,
-  solution: input => {
-    const matrix = splitToFlatArray({ input }).map(row =>
-      row.split('').map(e => parseInt(e)),
+  solution: (input) => {
+    const matrix = splitToFlatArray({ input }).map((row) =>
+      row.split('').map((e) => parseInt(e)),
     );
 
     const ROW_SIZE = matrix[0].length;
@@ -132,9 +132,9 @@ const distanceTop = ({ matrix, posX, posY, lastIndex }: DistanceProps) => {
 
 runner({
   path,
-  solution: input => {
-    const matrix = splitToFlatArray({ input }).map(row =>
-      row.split('').map(e => parseInt(e)),
+  solution: (input) => {
+    const matrix = splitToFlatArray({ input }).map((row) =>
+      row.split('').map((e) => parseInt(e)),
     );
     const ROW_SIZE = matrix[0].length;
     const ROW_LAST_INDEX = ROW_SIZE - 1;

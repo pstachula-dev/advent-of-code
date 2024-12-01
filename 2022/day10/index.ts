@@ -7,7 +7,7 @@ type REGISTER = 'noop' | 'addx';
 // Part 1
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     const result: number[] = [];
     let cyclesTotal = 0;
     let sum = 1;
@@ -19,7 +19,7 @@ runner({
     };
 
     splitToFlatArray({ input })
-      .map(el => {
+      .map((el) => {
         const [register, value] = el.split(' ');
         return {
           register: register as REGISTER,
@@ -53,7 +53,7 @@ runner({
 // Part 2
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     const screen: string[][] = [];
     let line: string[] = [];
     let currPos = 1;
@@ -69,7 +69,7 @@ runner({
     };
 
     splitToFlatArray({ input })
-      .map(el => {
+      .map((el) => {
         const [register, value] = el.split(' ');
         return {
           register: register as REGISTER,
@@ -86,6 +86,6 @@ runner({
         }
       });
 
-    return screen.map(el => el.join(''));
+    return screen.map((el) => el.join(''));
   },
 });

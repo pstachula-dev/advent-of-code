@@ -54,8 +54,8 @@ const constructGraph = (input: string[][]) => {
 // Part 1
 runner({
   path,
-  solution: input => {
-    const data = splitToFlatArray({ input }).map(row => row.split(''));
+  solution: (input) => {
+    const data = splitToFlatArray({ input }).map((row) => row.split(''));
 
     const findPath = (graph: Graph, start: string, end: string) => {
       const iterator = 0;
@@ -65,14 +65,16 @@ runner({
           node: start,
           weight: 0,
         },
-        ...rest.slice(1, rest.length).map(node => ({ node, weight: Infinity })),
+        ...rest
+          .slice(1, rest.length)
+          .map((node) => ({ node, weight: Infinity })),
       ];
       const vistedNodes: HeatGraph = [{ node: start, weight: 0 }];
       const paths: HeatGraph = [...nodesQueue];
 
       while (nodesQueue.length) {
         nodesQueue = paths
-          .filter(p => nodesQueue?.find(n => n.node === p.node))
+          .filter((p) => nodesQueue?.find((n) => n.node === p.node))
           .sort((a, b) => a.weight - b.weight);
         const currentNode = nodesQueue.shift();
 
@@ -83,8 +85,8 @@ runner({
         const entries = Object.entries(children);
 
         for (const [child, val] of entries) {
-          const childNode = paths.find(p => p.node === child);
-          const parent = paths.find(p => p.node === currentNode.node);
+          const childNode = paths.find((p) => p.node === child);
+          const parent = paths.find((p) => p.node === currentNode.node);
 
           if (childNode && parent) {
             console.log('\nStart', `${parent.node} -> ${child}`);
@@ -119,10 +121,10 @@ runner({
 // Part 2
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     const data = splitIntoGroups({
       input,
-      parser: e => Number(e),
+      parser: (e) => Number(e),
     });
 
     return 0;

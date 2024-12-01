@@ -8,7 +8,7 @@ const part1 = (lines: string[][]) => {
 
   // Expand
   for (let y = 0; y < lines.length; y++) {
-    if (lines[y].every(el => el === '.')) {
+    if (lines[y].every((el) => el === '.')) {
       const diff = y + expanded.length - lines.length;
       expanded.splice(diff, 0, lines[y]);
     }
@@ -28,7 +28,7 @@ const part1 = (lines: string[][]) => {
     }
   }
 
-  expanded.forEach(row => {
+  expanded.forEach((row) => {
     console.log(row.join(''));
   });
 
@@ -44,10 +44,10 @@ const part1 = (lines: string[][]) => {
 
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     const lines = input
       .split('\n')
-      .map(e => e.split(''))
+      .map((e) => e.split(''))
       .slice(0, -1);
 
     return part1(lines);

@@ -10,7 +10,7 @@ const firstPart = (movesStr: string, data: string[]) => {
   const children = new Map<string, string[]>();
   const moves = movesStr.split('');
 
-  data.forEach(row => {
+  data.forEach((row) => {
     const [node, rest] = row.split(' = ');
     children.set(node, rest.replace(/[()]/g, '').split(', '));
   });
@@ -40,7 +40,7 @@ const secondPart = (movesStr: string, data: string[]) => {
   const startChildren: string[] = [];
   const moves = movesStr.split('');
 
-  data.forEach(row => {
+  data.forEach((row) => {
     const [node, rest] = row.split(' = ');
     children.set(node, rest.replace(/[()]/g, '').split(', '));
 
@@ -51,7 +51,7 @@ const secondPart = (movesStr: string, data: string[]) => {
 
   let movesQueue: string[] = [...moves];
 
-  const cycles = startChildren.map(value => {
+  const cycles = startChildren.map((value) => {
     let current = value;
     let steps = 0;
 
@@ -91,7 +91,7 @@ const leasetCommonMultiple = (cycles: number[]) => {
 
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     const [moves, _empty, ...data] = input.split('\n').slice(0, -1);
     return secondPart(moves, data);
   },

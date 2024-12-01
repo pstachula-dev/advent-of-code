@@ -5,19 +5,19 @@ const path = `${__dirname}/${INPUT_PATH}`;
 // Part 1
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     let result = 0;
 
-    splitToFlatArray({ input }).map(line => {
+    splitToFlatArray({ input }).map((line) => {
       const [, scores] = line.split(':');
       const [winner, score] = scores.split('|');
-      const winnerNumbers = winner.split(' ').filter(c => c !== '');
+      const winnerNumbers = winner.split(' ').filter((c) => c !== '');
       let gameScore = 0;
 
       score
         .split(' ')
-        .filter(c => c !== '')
-        .forEach(el => {
+        .filter((c) => c !== '')
+        .forEach((el) => {
           if (winnerNumbers.includes(el)) {
             gameScore = gameScore === 0 ? 1 : gameScore * 2;
           }
@@ -32,19 +32,19 @@ runner({
 // Part 2
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     const data = splitToFlatArray({ input });
 
     type Game = { winners: string[]; scores: string[] };
     let result = 0;
     const games: Game[] = [];
 
-    data.forEach(line => {
+    data.forEach((line) => {
       const [, scores] = line.split(':');
       const [winner, score] = scores.split('|');
       games.push({
-        winners: winner.split(' ').filter(c => c !== ''),
-        scores: score.split(' ').filter(c => c !== ''),
+        winners: winner.split(' ').filter((c) => c !== ''),
+        scores: score.split(' ').filter((c) => c !== ''),
       });
     });
 
@@ -55,7 +55,7 @@ runner({
       const idx = games.indexOf(curr);
       let matchCount = 0;
 
-      curr?.scores.forEach(el => {
+      curr?.scores.forEach((el) => {
         if (curr.winners.includes(el)) {
           matchCount += 1;
         }

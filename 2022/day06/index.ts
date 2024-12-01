@@ -11,10 +11,10 @@ enum STATE {
 // Part 1
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     return splitToFlatArray({ input })
-      .map(row => row.split(''))
-      .map(chars => {
+      .map((row) => row.split(''))
+      .map((chars) => {
         const hash: Record<string, STATE> = {};
         const signal: string[] = [];
 
@@ -25,7 +25,7 @@ runner({
           if (hash[char] === STATE.second) {
             signal
               .splice(0, signal.indexOf(char) + STATE.first)
-              .forEach(signalChar => {
+              .forEach((signalChar) => {
                 hash[signalChar] =
                   signalChar !== char ? STATE.empty : STATE.first;
               });

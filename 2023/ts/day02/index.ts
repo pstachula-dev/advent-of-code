@@ -15,13 +15,13 @@ runner({
       blue: 14,
     };
 
-    splitToFlatArray({ input, splitChar: '\n' }).map(group => {
+    splitToFlatArray({ input, splitChar: '\n' }).map((group) => {
       const [id, ...games] = group.split(': ');
 
-      games.map(groupGames => {
+      games.map((groupGames) => {
         let isPossible = true;
-        groupGames.split('; ').map(game => {
-          game.split(/,\s/).map(row => {
+        groupGames.split('; ').map((game) => {
+          game.split(/,\s/).map((row) => {
             const [val, type] = row.split(' ');
 
             if (Number(val) > gameMax[type]) {
@@ -43,15 +43,15 @@ runner({
 // Part 2
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     let idsSum = 0;
 
-    splitToFlatArray({ input, splitChar: '\n' }).map(group => {
+    splitToFlatArray({ input, splitChar: '\n' }).map((group) => {
       const [_id, ...games] = group.split(': ');
 
-      games.map(groupGames => {
+      games.map((groupGames) => {
         const game: GameRecord = { red: 0, green: 0, blue: 0 };
-        groupGames.split(/,\s|; /).map(row => {
+        groupGames.split(/,\s|; /).map((row) => {
           const [val, type] = row.split(' ');
 
           if (Number(val) > game[type]) {

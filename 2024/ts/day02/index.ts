@@ -5,5 +5,5 @@ const path = `${__dirname}/${INPUT_PATH}`;
 // Part 1
 runner({
   path,
-  solution: input => {},
+  solution: (input) => {},
 });

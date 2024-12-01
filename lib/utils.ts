@@ -26,7 +26,7 @@ export const splitToFlatArray = <T extends string | number = string>({
   input,
   splitChar = '\n',
   limit = Infinity,
-  parser = e => e as T,
+  parser = (e) => e as T,
 }: {
   input: string;
   splitChar?: SplitChar;
@@ -41,7 +41,7 @@ export const splitIntoGroups = <T extends string | number = string>({
   splitGroupChar = '\n\n',
   splitChar = '\n',
   limit = Infinity,
-  parser = e => e as T,
+  parser = (e) => e as T,
 }: {
   input: string;
   splitGroupChar?: SplitChar;
@@ -52,7 +52,7 @@ export const splitIntoGroups = <T extends string | number = string>({
   return input
     .split(splitGroupChar)
     .splice(0, limit)
-    .map(el => splitToFlatArray({ input: el, parser, splitChar }));
+    .map((el) => splitToFlatArray({ input: el, parser, splitChar }));
 };
 
 export const isNumber = (arg: string): boolean => Number.isInteger(Number(arg));

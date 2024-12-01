@@ -28,10 +28,10 @@ const wordMap: Record<string, number> = {
 // Part 1
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     return splitToFlatArray({ input, splitChar: '\n' })
-      .map(group => {
-        const row = [...group].filter(item => !isNaN(Number(item)));
+      .map((group) => {
+        const row = [...group].filter((item) => !isNaN(Number(item)));
         return Number((row.at(0) || '') + (row.at(-1) || ''));
       })
       .reduce(sum);
@@ -41,9 +41,9 @@ runner({
 // Part 2
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     return splitToFlatArray({ input, splitChar: '\n' })
-      .map(row => {
+      .map((row) => {
         let rowTmp = row;
         let val = '';
 
@@ -57,7 +57,7 @@ runner({
           const word = rowTmp.substring(0, 3);
 
           const search = numberMap.find(
-            num => num.startsWith(word) && rowTmp.match(num),
+            (num) => num.startsWith(word) && rowTmp.match(num),
           );
 
           if (search && word.length >= 3) {

@@ -4,8 +4,8 @@ import { runner } from '../../legacy/utils';
 const part1 = (data: number[]) =>
   data.filter((el, index) => el < data[index + 1]).length;
 
-runner(input => {
-  const data = input.map(e => parseInt(e));
+runner((input) => {
+  const data = input.map((e) => parseInt(e));
   return part1(data);
 }, './2021/day1/input.txt');
 
@@ -19,7 +19,7 @@ const part2 = (data: number[]) => {
   return data.filter((_, i) => sumArray(data, i) < sumArray(data, i, 1)).length;
 };
 
-runner(input => {
-  const data = input.map(e => parseInt(e));
+runner((input) => {
+  const data = input.map((e) => parseInt(e));
   return part2(data);
 }, './2021/day1/input.txt');

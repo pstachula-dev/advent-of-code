@@ -5,7 +5,7 @@ const path = `${__dirname}/${INPUT_PATH}`;
 // Part 1
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     let result = 1;
     const data = input.split('\n').filter(Boolean);
     const times = data[0].split(':')[1].split(' ').filter(Boolean).map(Number);

@@ -10,12 +10,12 @@ const path = `${__dirname}/${INPUT_PATH}`;
 const GEAR = '*';
 const DOT = '.';
 const hasSymbol = (chars: string[]) =>
-  chars.some(char => char && char !== DOT && !isNumber(char));
+  chars.some((char) => char && char !== DOT && !isNumber(char));
 
 // Part 1
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     const data = splitToFlatArray({ input });
     let result = 0;
 
@@ -58,12 +58,12 @@ runner({
   },
 });
 
-const hasGear = (chars: string[]) => chars.some(char => char === GEAR);
+const hasGear = (chars: string[]) => chars.some((char) => char === GEAR);
 
 // Part 2
 runner({
   path,
-  solution: input => {
+  solution: (input) => {
     const data = splitToFlatArray({ input });
     let result = 0;
     const gears: number[][] = [];

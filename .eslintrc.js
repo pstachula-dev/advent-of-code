@@ -32,7 +32,6 @@ module.exports = {
         '@typescript-eslint/no-floating-promises': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
         'no-self-assign': 'off',
-        'arrow-parens': 'off',
       },
     },
   ],
