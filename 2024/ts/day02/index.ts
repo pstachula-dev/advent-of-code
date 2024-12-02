@@ -9,27 +9,22 @@ import {
 
 const path = `${__dirname}/${INPUT_PATH}`;
 
-const getReport = (pairs: number[][]) => {
-  return (
-    pairs.every(([x, y]) => x - y <= 3 && x - y > 0) ||
-    pairs.every(([x, y]) => y - x <= 3 && y - x > 0)
-  );
-};
-
 const getSafeLevel = (lines: number[][]) => {
   return lines
     .map((line) => zip(line, line.slice(1)).slice(0, -1) as number[][])
-    .filter(getReport).length;
+    .filter(
+      (pairs) =>
+        pairs.every(([x, y]) => x - y <= 3 && x - y > 0) ||
+        pairs.every(([x, y]) => y - x <= 3 && y - x > 0),
+    ).length;
 };
 
 const tryGetSafeLevel = (lines: number[][]) => {
   return lines
-    .map(
-      (line) =>
-        line
-          .map((_, idx) => [...line.slice(0, idx), ...line.slice(idx + 1)])
-          .map((line) => zip(line, line.slice(1)).slice(0, -1) as number[][])
-          .filter(getReport).length,
+    .map((line) =>
+      getSafeLevel(
+        line.map((_, idx) => [...line.slice(0, idx), ...line.slice(idx + 1)]),
+      ),
     )
     .filter(Boolean).length;
 };
