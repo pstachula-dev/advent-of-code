@@ -5,6 +5,8 @@ export type SplitChar = '\n' | '\n\n' | ' ' | ',';
 export const INPUT_PATH = 'input.txt';
 export const SAMPLE_PATH = 'sample.txt';
 
+export const splitLines = (input: string) => input.split('\n').slice(0, -1);
+
 export const runner = async ({
   solution,
   path,

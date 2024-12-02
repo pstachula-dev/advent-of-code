@@ -1,4 +1,4 @@
-import { zip, unzip, sum } from 'lodash';
+import { zip, unzip, sum, sumBy } from 'lodash';
 import { INPUT_PATH, runner, SAMPLE_PATH } from '../../../lib/utils';
 
 const path = `${__dirname}/${SAMPLE_PATH}`;
@@ -16,14 +16,13 @@ runner({
     ).map((list) => list.sort());
 
     // Part1
-    const p1 = zip(left, right).reduce(
-      (acc, [x, y]) => acc + Math.abs(Number(x) - Number(y)),
-      0,
+    const p1 = sumBy(zip(left, right), ([x, y]) =>
+      Math.abs(Number(x) - Number(y)),
     );
 
     // Part2
     const p2 = sum(left.map((x) => right.filter((y) => x === y).length * x));
 
-    console.log(p1, p2);
+    return { p1, p2 };
   },
 });
