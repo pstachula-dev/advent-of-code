@@ -4,6 +4,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "devDependencies": {
+    "@total-typescript/ts-reset": "^0.6.1",
     "@types/lodash-es": "^4.17.12",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",

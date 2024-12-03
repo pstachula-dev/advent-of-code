@@ -1,10 +1,10 @@
 {
-    "compilerOptions": {
-        "module": "CommonJS",
-        "target": "ESNext",
-        "allowJs": true,
-        "strict": true
-    },
-    "include": ["**/*", ".eslintrc.js"],
-    "exclude": ["node_modules"]
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ESNext",
+    "allowJs": true,
+    "strict": true
+  },
+  "include": ["**/*", ".eslintrc.js", "reset.d.ts"],
+  "exclude": ["node_modules"]
 }

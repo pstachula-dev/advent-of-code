@@ -1,4 +1,4 @@
-import { INPUT_PATH, runner, splitToFlatArray, sum } from '../../../lib/utils';
+import { INPUT_PATH, runner, SAMPLE_PATH } from '../../../lib/utils';
 
 const path = `${__dirname}/${INPUT_PATH}`;
 

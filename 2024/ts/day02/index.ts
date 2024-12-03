@@ -12,21 +12,21 @@ const path = `${__dirname}/${INPUT_PATH}`;
 const getSafeLevel = (lines: number[][]) => {
   return lines
     .map((line) => zip(line, line.slice(1)).slice(0, -1) as number[][])
-    .filter(
-      (pairs) =>
-        pairs.every(([x, y]) => x - y <= 3 && x - y > 0) ||
-        pairs.every(([x, y]) => y - x <= 3 && y - x > 0),
-    ).length;
+    .filter((pairs) => {
+      const diffs = pairs.map(([x, y]) => x - y);
+      return (
+        diffs.every((diff) => diff <= 3 && diff > 0) ||
+        diffs.every((diff) => diff >= -3 && diff < 0)
+      );
+    }).length;
 };
 
 const tryGetSafeLevel = (lines: number[][]) => {
-  return lines
-    .map((line) =>
-      getSafeLevel(
-        line.map((_, idx) => [...line.slice(0, idx), ...line.slice(idx + 1)]),
-      ),
-    )
-    .filter(Boolean).length;
+  return lines.filter((line) =>
+    getSafeLevel(
+      line.map((_, idx) => line.slice(0, idx).concat(line.slice(idx + 1))),
+    ),
+  ).length;
 };
 
 // Part 1
@@ -35,9 +35,6 @@ runner({
   solution: (input) => {
     const lines = splitLines(input).map((e) => e.split(' ').map(Number));
 
-    const p1 = getSafeLevel(lines);
-    const p2 = tryGetSafeLevel(lines);
-
-    return { p1, p2 };
+    return { p1: getSafeLevel(lines), p2: tryGetSafeLevel(lines) };
   },
 });
