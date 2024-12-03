@@ -30,7 +30,7 @@ const p2 = (lines: string) => {
             .split(',')
             .filter((num) => !isNaN(Number(num)))
             .map((num) => Number(num))
-        : null;
+        : [];
     })
     .filter((el) => el?.length)
     .reduce((acc, [x, y]) => acc + x * y, 0);
@@ -40,12 +40,6 @@ const p2 = (lines: string) => {
 runner({
   path,
   solution: (input) => {
-    console.log(
-      "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))".match(
-        /(mul\()(\d+,\d+)\)|(do\(\))|(don't\(\))/gm,
-      ),
-    );
-
     return { p1: p1(input), p2: p2(input) };
   },
 });
