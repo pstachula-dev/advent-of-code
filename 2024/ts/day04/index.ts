@@ -15,40 +15,15 @@ const p1 = (lines: string[][]) => {
   let total = 0;
 
   lines.forEach((row, idy) => {
-    row.forEach((el, idx) => {
-      // horizontal
-      if (
-        searchEvery.some((s) => s.every((letter, i) => row[idx + i] === letter))
-      ) {
-        total += 1;
-      }
-
-      // vertical
-      if (
-        searchEvery.some((s) =>
-          s.every((letter, i) => lines[idy + i]?.[idx] === letter),
-        )
-      ) {
-        total += 1;
-      }
-
-      // diagonal right
-      if (
-        searchEvery.some((s) =>
-          s.every((letter, i) => lines[idy + i]?.[idx + i] === letter),
-        )
-      ) {
-        total += 1;
-      }
-
-      // diagonal left
-      if (
-        searchEvery.some((s) =>
-          s.every((letter, i) => lines[idy + i]?.[idx - i] === letter),
-        )
-      ) {
-        total += 1;
-      }
+    row.forEach((_, idx) => {
+      searchEvery.forEach((s) => {
+        if (s.every((el, index) => row[idx + index] === el)) total++;
+        if (s.every((el, index) => lines[idy + index]?.[idx] === el)) total++;
+        if (s.every((el, index) => lines[idy + index]?.[idx - index] === el))
+          total++;
+        if (s.every((el, index) => lines[idy + index]?.[idx + index] === el))
+          total++;
+      });
     });
   });
 
@@ -60,16 +35,15 @@ const p2 = (lines: string[][]) => {
 
   lines.forEach((row, idy) => {
     row.forEach((el, idx) => {
-      if (
+      total +=
         searchEveryX.some((s) =>
-          s.every((letter, i) => lines[idy + i]?.[idx + i] === letter),
+          s.every((el, index) => lines[idy + index]?.[idx + index] === el),
         ) &&
         searchEveryX.some((s) =>
-          s.every((letter, i) => lines[idy + i]?.[idx + 2 - i] === letter),
+          s.every((el, index) => lines[idy + index]?.[idx + 2 - index] === el),
         )
-      ) {
-        total += 1;
-      }
+          ? 1
+          : 0;
     });
   });
 
