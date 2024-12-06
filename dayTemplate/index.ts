@@ -1,9 +1,21 @@
-import { INPUT_PATH, runner, SAMPLE_PATH } from '../../../lib/utils';
+import {
+  INPUT_PATH,
+  runner,
+  SAMPLE_PATH,
+  splitLines,
+} from '../../../lib/utils';
 
-const path = `${__dirname}/${INPUT_PATH}`;
+const path = `${__dirname}/${SAMPLE_PATH}`;
 
-// Part 1
+const p1 = (lines: string[]) => {
+  return lines;
+};
+
 runner({
   path,
-  solution: (input) => {},
+  solution: (input) => {
+    const lines = splitLines(input);
+
+    return { p1: p1(lines) };
+  },
 });
