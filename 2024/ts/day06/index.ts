@@ -7,122 +7,51 @@ import {
 
 const path = `${__dirname}/${INPUT_PATH}`;
 
-const changeDirection = (dir: number) => {
-  const newDir = dir + 90;
-  return newDir === 360 ? 0 : newDir;
+type Config = {
+  hasPos: boolean;
+  counter: number;
+  direction: number;
+  visited: Set<string>;
 };
 
-const getHasPosition = (char: string | undefined) => char !== undefined;
+type CurrentPos = {
+  x: number;
+  y: number;
+};
 
-const p1 = (grid: string[][]) => {
-  const xLen = grid[0].length;
-  const yLen = grid.length;
-  let direction = 0;
-  let currPos: { x: number; y: number } = { x: 0, y: 0 };
+const changeDirection = (config: Config) => {
+  const newDir = config.direction + 90;
+  config.direction = newDir === 360 ? 0 : newDir;
+};
 
-  grid.find((row, y) =>
-    row.find((el, x) => {
-      if (el === '^') return (currPos = { x, y });
-    }),
-  );
+const getVisitedPos = (currPos: CurrentPos, config: Config) =>
+  `${currPos.x}-${currPos.y}-${config.direction}`;
 
-  let hasPosition = true;
-  let counter = 0;
+const checkPosition = (
+  area: string | undefined,
+  config: Config,
+  currPos: CurrentPos,
+) => {
+  config.visited.add(getVisitedPos(currPos, config));
 
-  const logDashboard = () => {
-    // console.log('Direction', globalCounter, direction, counter);
-    // grid.forEach((row, i) => console.log(i, row.join(''), '\n'));
-  };
-
-  while (hasPosition) {
-    if (direction === 0) {
-      for (let y = currPos.y - 1; y >= -1; y--) {
-        const area = grid[y]?.[currPos.x];
-
-        if (area === '.') counter++;
-        hasPosition = getHasPosition(area);
-        if (!hasPosition) break;
-
-        if (area === '#') {
-          currPos.y = y + 1;
-          direction = changeDirection(direction);
-          logDashboard();
-          break;
-        }
-        grid[y][currPos.x] = 'X';
-      }
-    }
-
-    if (direction === 180) {
-      for (let y = currPos.y + 1; y <= yLen; y++) {
-        const area = grid[y]?.[currPos.x];
-
-        if (area === '.') counter++;
-        hasPosition = getHasPosition(area);
-        if (!hasPosition) break;
-
-        if (area === '#') {
-          currPos.y = y - 1;
-          direction = changeDirection(direction);
-          logDashboard();
-          break;
-        }
-        grid[y][currPos.x] = 'X';
-      }
-    }
-
-    if (direction === 90) {
-      for (let x = currPos.x + 1; x <= xLen; x++) {
-        const area = grid[currPos.y][x];
-        if (area === '.') counter++;
-
-        hasPosition = getHasPosition(grid[currPos.y][x]);
-        if (!hasPosition) break;
-
-        if (area === '#') {
-          currPos.x = x - 1;
-          direction = changeDirection(direction);
-          logDashboard();
-          break;
-        }
-        grid[currPos.y][x] = 'X';
-      }
-    }
-
-    if (direction === 270) {
-      for (let x = currPos.x - 1; x >= -1; x--) {
-        const area = grid[currPos.y][x];
-        if (area === '.') counter++;
-
-        hasPosition = getHasPosition(area);
-        if (!hasPosition) break;
-
-        if (area === '#') {
-          currPos.x = x + 1;
-          direction = changeDirection(direction);
-          logDashboard();
-          break;
-        }
-        grid[currPos.y][x] = 'X';
-      }
-    }
+  config.hasPos = area !== undefined;
+  if (area === '.') config.counter++;
+  if (!config.hasPos || area === '') return true;
+  if (area === '#') {
+    changeDirection(config);
+    return true;
   }
-
-  return counter + 1;
 };
 
-// TODO: fix me later
-const simulateGuardMovement = (
-  originalGrid: string[][],
-  obstruction: { x: number; y: number },
-): boolean => {
-  const grid = originalGrid.map((row) => [...row]);
-  grid[obstruction.y][obstruction.x] = '#';
-
+const p1 = (gridSource: string[][], x?: number, y?: number) => {
+  const grid = gridSource.map((r) => [...r]);
   const xLen = grid[0].length;
   const yLen = grid.length;
-  let direction = 0;
-  let currPos: { x: number; y: number } = { x: 0, y: 0 };
+  let currPos: CurrentPos = { x: 0, y: 0 };
+
+  if (x && y) {
+    grid[y][x] = '#'; // set O
+  }
 
   grid.find((row, y) =>
     row.find((el, x) => {
@@ -132,111 +61,64 @@ const simulateGuardMovement = (
     }),
   );
 
-  let hasPosition = true;
-  const visitedStates = new Set<string>();
+  const config: Config = {
+    hasPos: true,
+    counter: 0,
+    direction: 0,
+    visited: new Set(),
+  };
 
-  while (hasPosition) {
-    const stateKey = `${currPos.x},${currPos.y},${direction}`;
-
-    if (visitedStates.has(stateKey)) {
-      return true; // Guard is stuck in a loop
+  while (config.hasPos) {
+    if (config.visited.has(getVisitedPos(currPos, config))) {
+      return true;
     }
-    visitedStates.add(stateKey);
 
-    if (direction === 0) {
-      // Moving UP
-      let foundWall = false;
-      for (let y = currPos.y - 1; y >= 0; y--) {
+    if (config.direction === 0) {
+      for (let y = currPos.y - 1; y >= -1; y--) {
         const area = grid[y]?.[currPos.x];
+        currPos.y = y + 1;
 
-        if (!area) {
-          hasPosition = false;
-          break;
-        }
+        if (checkPosition(area, config, currPos)) break;
 
-        if (area === '#') {
-          currPos.y = y + 1;
-          direction = changeDirection(direction);
-          foundWall = true;
-          break;
-        }
-      }
-      if (!foundWall) {
-        hasPosition = false;
+        // grid[y][currPos.x] = 'X';
       }
     }
 
-    if (direction === 180) {
-      // Moving DOWN
-      let foundWall = false;
-      for (let y = currPos.y + 1; y < yLen; y++) {
+    if (config.direction === 180) {
+      for (let y = currPos.y + 1; y <= yLen; y++) {
         const area = grid[y]?.[currPos.x];
+        currPos.y = y - 1;
 
-        if (!area) {
-          hasPosition = false;
-          break;
-        }
+        if (checkPosition(area, config, currPos)) break;
 
-        if (area === '#') {
-          currPos.y = y - 1;
-          direction = changeDirection(direction);
-          foundWall = true;
-          break;
-        }
-      }
-      if (!foundWall) {
-        hasPosition = false;
+        // grid[y][currPos.x] = 'X';
       }
     }
 
-    if (direction === 90) {
-      // Moving RIGHT
-      let foundWall = false;
-      for (let x = currPos.x + 1; x < xLen; x++) {
+    if (config.direction === 90) {
+      for (let x = currPos.x + 1; x <= xLen; x++) {
         const area = grid[currPos.y][x];
+        currPos.x = x - 1;
 
-        if (!area) {
-          hasPosition = false;
-          break;
-        }
+        if (checkPosition(area, config, currPos)) break;
 
-        if (area === '#') {
-          currPos.x = x - 1;
-          direction = changeDirection(direction);
-          foundWall = true;
-          break;
-        }
-      }
-      if (!foundWall) {
-        hasPosition = false;
+        // grid[currPos.y][x] = 'X';
       }
     }
 
-    if (direction === 270) {
-      // Moving LEFT
-      let foundWall = false;
-      for (let x = currPos.x - 1; x >= 0; x--) {
+    if (config.direction === 270) {
+      for (let x = currPos.x - 1; x >= -1; x--) {
         const area = grid[currPos.y][x];
+        currPos.x = x + 1;
 
-        if (!area) {
-          hasPosition = false;
-          break;
-        }
+        if (checkPosition(area, config, currPos)) break;
 
-        if (area === '#') {
-          currPos.x = x + 1;
-          direction = changeDirection(direction);
-          foundWall = true;
-          break;
-        }
-      }
-      if (!foundWall) {
-        hasPosition = false;
+        // grid[currPos.y][x] = 'X';
       }
     }
   }
 
-  return false; // Guard escaped or got stuck
+  return false;
 };
 
 const p2 = (grid: string[][]): number => {
@@ -249,27 +131,21 @@ const p2 = (grid: string[][]): number => {
   grid.find((row, y) =>
     row.find((el, x) => {
       if (el === '^') {
-        guardStart = { x, y };
-        return true;
+        return (guardStart = { x, y });
       }
-      return false;
     }),
   );
 
-  // Try placing obstruction at every possible position
   for (let y = 0; y < yLen; y++) {
     for (let x = 0; x < xLen; x++) {
       if (
         (guardStart && x === guardStart.x && y === guardStart.y) ||
-        grid[y][x] === '#'
+        grid[y][x] === '#' // => O
       ) {
         continue;
       }
 
-      // Check if this position creates a loop
-      if (simulateGuardMovement(grid, { x, y })) {
-        loopPositions++;
-      }
+      if (p1(grid, x, y)) loopPositions++;
     }
   }
 
