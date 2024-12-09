@@ -32,8 +32,6 @@ const checkPosition = (
   config: Config,
   currPos: CurrentPos,
 ) => {
-  config.visited.add(getVisitedPos(currPos, config));
-
   config.hasPos = area !== undefined;
   if (area === '.') config.counter++;
   if (!config.hasPos || area === '') return true;
@@ -72,6 +70,7 @@ const p1 = (gridSource: string[][], x?: number, y?: number) => {
     if (config.visited.has(getVisitedPos(currPos, config))) {
       return true;
     }
+    config.visited.add(getVisitedPos(currPos, config));
 
     if (config.direction === 0) {
       for (let y = currPos.y - 1; y >= -1; y--) {
@@ -79,8 +78,6 @@ const p1 = (gridSource: string[][], x?: number, y?: number) => {
         currPos.y = y + 1;
 
         if (checkPosition(area, config, currPos)) break;
-
-        // grid[y][currPos.x] = 'X';
       }
     }
 
@@ -90,8 +87,6 @@ const p1 = (gridSource: string[][], x?: number, y?: number) => {
         currPos.y = y - 1;
 
         if (checkPosition(area, config, currPos)) break;
-
-        // grid[y][currPos.x] = 'X';
       }
     }
 
@@ -101,8 +96,6 @@ const p1 = (gridSource: string[][], x?: number, y?: number) => {
         currPos.x = x - 1;
 
         if (checkPosition(area, config, currPos)) break;
-
-        // grid[currPos.y][x] = 'X';
       }
     }
 
@@ -112,8 +105,6 @@ const p1 = (gridSource: string[][], x?: number, y?: number) => {
         currPos.x = x + 1;
 
         if (checkPosition(area, config, currPos)) break;
-
-        // grid[currPos.y][x] = 'X';
       }
     }
   }
