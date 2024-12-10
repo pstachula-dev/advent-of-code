@@ -1,54 +1,41 @@
-import { add, multiply, range } from 'lodash';
+import { range } from 'lodash';
 import {
   INPUT_PATH,
   runner,
   SAMPLE_PATH,
   splitLines,
+  permutate,
 } from '../../../lib/utils';
 
 const path = `${__dirname}/${INPUT_PATH}`;
 
-const permutate = (n: number): string[] => {
-  const results: string[] = [];
-  const operators = ['+', '*'];
-
-  const generatePermutations = (current: string[], length: number) => {
-    if (length === 0) {
-      results.push(current.join(''));
-      return;
-    }
-
-    for (const op of operators) {
-      generatePermutations([...current, op], length - 1);
-    }
-  };
-
-  generatePermutations([], n);
-
-  return results;
-};
-
 const p1 = (
   lines: { result: number; values: number[] }[],
-  permutations: string[][],
+  permutations: string[][][],
 ) => {
-  return lines
-    .filter(({ result, values }) =>
-      permutations[values.length - 2].some(
-        (perms) =>
-          result ===
-          perms
-            .split('')
-            .reduce(
-              (acc, curr, idx) =>
-                curr === '+'
-                  ? add(acc, values[idx + 1])
-                  : multiply(acc, values[idx + 1]),
-              values[0],
-            ),
-      ),
-    )
-    .reduce((acc, curr) => acc + curr.result, 0);
+  const results = lines.filter(({ result, values }) =>
+    permutations[values.length - 2].some((operators) => {
+      return (
+        result ===
+        operators.reduce((acc, operator, idx) => {
+          const next = values[idx + 1];
+
+          switch (operator) {
+            case '|':
+              return acc * 10 ** next.toString().length + next;
+            case '+':
+              return acc + next;
+            case '*':
+              return acc * next;
+            default:
+              throw new Error('Unknown operator');
+          }
+        }, values[0])
+      );
+    }),
+  );
+
+  return results.reduce((acc, curr) => acc + curr.result, 0);
 };
 
 runner({
@@ -62,7 +49,16 @@ runner({
       };
     });
 
-    const permutations = range(1, 12).map((el) => permutate(el));
-    return { p1: p1(lines, permutations) };
+    const operators = ['*', '+'];
+    const operatorsP2 = [...operators, '|'];
+
+    const operationPermutations = range(1, 12).map((el) =>
+      permutate(el, operatorsP2).map((row) => row.split('')),
+    );
+
+    return {
+      // p1: p1(lines, operationPermutations),
+      p2: p1(lines, operationPermutations),
+    };
   },
 });

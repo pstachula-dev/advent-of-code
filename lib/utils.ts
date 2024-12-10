@@ -62,6 +62,25 @@ export const isNumber = (arg: string): boolean => Number.isInteger(Number(arg));
 export const sum = (curr: number, prev: number, currIndex: number): number =>
   curr + prev;
 
+export const permutate = (n: number, operators: string[]): string[] => {
+  const results: string[] = [];
+
+  const generatePermutations = (current: string[], length: number) => {
+    if (length === 0) {
+      results.push(current.join(''));
+      return;
+    }
+
+    for (const op of operators) {
+      generatePermutations([...current, op], length - 1);
+    }
+  };
+
+  generatePermutations([], n);
+
+  return results;
+};
+
 // eslint-disable-next-line prettier/prettier
 export const alphabet = [
   'a',
