@@ -5,7 +5,7 @@ import {
   splitLines,
 } from '../../../lib/utils';
 
-const path = `${__dirname}/${SAMPLE_PATH}`;
+const path = `${__dirname}/${INPUT_PATH}`;
 
 const p1 = (lines: number[]) => {
   const disk: string[] = [];
@@ -41,53 +41,62 @@ const p1 = (lines: number[]) => {
 
 const p2 = (lines: number[]) => {
   const disk: string[] = [];
+  const charQueue: string[] = [];
 
   lines.forEach((length, idx) => {
     const char = idx % 2 === 0 ? String(idx / 2) : '.';
     disk.push(...Array.from<string>({ length }).fill(char));
+    if (idx % 2 === 0) charQueue.push(char);
   });
 
-  const dotPositions = disk
-    .map((dot, idx) => (dot === '.' ? idx : null))
-    .filter((dot) => dot !== null);
+  lines
+    .filter((el, idx) => idx % 2 === 0)
+    .toReversed()
+    .forEach((part) => {
+      const char = charQueue.pop() || '';
+      const charIdx = disk.indexOf(char);
+      let freePart: number[] = [];
 
-  const checkDotsLen = (idx: number) => {
-    let len = 0;
-    let char = disk[idx];
-    while (char === '.') {
-      len++;
-      char = disk[++idx];
-    }
-    return len;
-  };
+      for (let i = 0; i < disk.length; i++) {
+        const first = disk[i];
 
-  console.log(dotPositions);
-  console.log(disk.join(''));
+        if (freePart.length && first !== '.') {
+          if (part <= freePart.length) break;
+          freePart = [];
+        }
 
-  for (let i = disk.length - 1; i >= 0; i--) {
-    const len = lines.pop();
+        if (first === '.' && i < charIdx) {
+          freePart.push(i);
+        }
+      }
 
-    const char = disk[i];
+      if (part <= freePart.length) {
+        let toDelete = part;
 
-    if (char !== '.') {
-      const dotIdx = dotPositions.shift() || -1;
+        for (let i = 0; i < part; i++) {
+          disk[freePart[i]] = char;
+        }
 
-      const x = checkDotsLen(dotIdx);
-      console.log(x, dotIdx);
+        for (let i = disk.length; i >= 0; i--) {
+          if (toDelete === 0) break;
+          if (disk[i] === char) {
+            disk[i] = '.';
+            toDelete--;
+          }
+        }
+      }
+    });
 
-      if (dotIdx > i) break;
-    }
-  }
-
-  return disk
-    .filter((e) => e !== '.')
-    .reduce((acc, curr, idx) => (acc += +curr * idx), 0);
+  return disk.reduce(
+    (acc, curr, idx) => (curr !== '.' ? (acc += +curr * idx) : acc),
+    0,
+  );
 };
+
 runner({
   path,
   solution: (input) => {
-    const lines = input.split('').map(Number);
-
+    const lines = input.split('').slice(0, -1).map(Number);
     return { p2: p2(lines) };
   },
 });
