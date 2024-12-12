@@ -37,4 +37,4 @@ bun 2024/ts/day01/index.ts
 | [Day 8](/2024/ts/day08/index.ts) | 0.98ms  | 1.2ms  |
 | [Day 9](/2024/ts/day09/index.ts) | 11.8ms  | 2846.31ms  |
 | [Day 10](/2024/ts/day10/index.ts) | - ms | - ms |
-| [Day 11](/2024/ts/day11/index.ts) | 342ms | - ms |
+| [Day 11](/2024/ts/day11/index.ts) | 2.1ms | 28.9 ms |

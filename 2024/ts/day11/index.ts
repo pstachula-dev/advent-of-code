@@ -5,45 +5,77 @@ import {
   splitLines,
 } from '../../../lib/utils';
 
-const path = `${__dirname}/${SAMPLE_PATH}`;
+const path = `${__dirname}/${INPUT_PATH}`;
 
-const p1 = (lines: number[]) => {
-  let values = [...lines];
-  const cache = new Map<number, number[]>();
+const cache = new Map<number, number[]>();
 
-  for (let i = 0; i < 35; i++) {
-    const nextValues: number[] = [];
+const blink = (values: Map<number, number>) => {
+  const nextValues = new Map<number, number>();
 
-    for (const el of values) {
-      let result: number[];
+  for (const [el, count] of values.entries()) {
+    const cacheItem = cache.get(el);
 
-      if (el === 0) {
-        result = [1];
-        nextValues.push(...result);
-        continue;
+    if (cacheItem) {
+      nextValues.set(cacheItem[0], (nextValues.get(cacheItem[0]) || 0) + count);
+
+      if (cacheItem[1] >= 0) {
+        nextValues.set(
+          cacheItem[1],
+          (nextValues.get(cacheItem[1]) || 0) + count,
+        );
       }
 
-      const elStr = el.toString();
-
-      if (elStr.length % 2 === 0) {
-        const half = elStr.length / 2;
-        result = [Number(elStr.slice(0, half)), Number(elStr.slice(half))];
-      } else {
-        result = [el * 2024];
-      }
-      nextValues.push(...result);
+      continue;
     }
-    values = nextValues;
+
+    if (el === 0) {
+      nextValues.set(1, (nextValues.get(1) || 0) + count);
+      cache.set(el, [1]);
+      continue;
+    }
+
+    const elStrLen = el.toString().length;
+
+    if (elStrLen % 2 === 0) {
+      const half = elStrLen / 2;
+      const divider = 10 ** half;
+      const left = Math.floor(el / divider);
+      const right = el % divider;
+      nextValues.set(left, (nextValues.get(left) || 0) + count);
+      nextValues.set(right, (nextValues.get(right) || 0) + count);
+      cache.set(el, [left, right]);
+    } else {
+      const newVal = el * 2024;
+      nextValues.set(newVal, (nextValues.get(newVal) || 0) + count);
+      cache.set(el, [newVal]);
+    }
   }
 
-  return values.length;
+  return nextValues;
+};
+
+const p1 = (input: string, limit: number) => {
+  const lines = input.split(' ').map(Number);
+  let stoneCache = new Map<number, number>();
+  for (const i of lines) stoneCache.set(i, 1);
+
+  for (let i = 0; i < limit; i++) {
+    stoneCache = blink(stoneCache);
+  }
+
+  return stoneCache.entries().reduce((acc, [, val]) => acc + val, 0);
 };
 
 runner({
   path,
   solution: (input) => {
-    const lines = input.split(' ').map(Number);
+    return p1(input, 25);
+  },
+});
 
-    return { p1: p1(lines) };
+runner({
+  path,
+  solution: (input) => {
+    return p1(input, 75);
   },
 });

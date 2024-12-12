@@ -19,8 +19,6 @@ const p1 = (lines: number[]) => {
     .map((dot, idx) => (dot === '.' ? idx : null))
     .filter((dot) => dot !== null);
 
-  // console.log(disk.join(''));
-
   for (let i = disk.length - 1; i >= 0; i--) {
     const char = disk[i];
 
