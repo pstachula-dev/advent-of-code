@@ -34,7 +34,8 @@ bun 2024/ts/day01/index.ts
 | [Day 5](/2024/ts/day05/index.ts) | 61.4ms  | 690.2ms  |
 | [Day 6](/2024/ts/day06/index.ts) | 1.1ms  | 926.5ms  |
 | [Day 7](/2024/ts/day07/index.ts) | 25.0ms  | 957.8ms  |
-| [Day 8](/2024/ts/day08/index.ts) | 0.98ms  | 1.2ms  |
-| [Day 9](/2024/ts/day09/index.ts) | 11.8ms  | 2846.31ms  |
-| [Day 10](/2024/ts/day10/index.ts) | - ms | - ms |
+| [Day 8](/2024/ts/day08/index.ts) | 0.9ms  | 1.2ms  |
+| [Day 9](/2024/ts/day09/index.ts) | 11.8ms  | 2846.3ms  |
+| [Day 10](/2024/ts/day10/index.ts) | 9.8 ms | 10.5 ms |
 | [Day 11](/2024/ts/day11/index.ts) | 2.1ms | 28.9 ms |
+| [Day 12](/2024/ts/day12/index.ts) | 10.6ms | - ms |

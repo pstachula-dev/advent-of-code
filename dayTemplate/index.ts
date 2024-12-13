@@ -7,15 +7,12 @@ import {
 
 const path = `${__dirname}/${SAMPLE_PATH}`;
 
-const p1 = (lines: string[]) => {
+const solution = (input: string) => {
+  const lines = splitLines(input);
   return lines;
 };
 
 runner({
   path,
-  solution: (input) => {
-    const lines = splitLines(input);
-
-    return { p1: p1(lines) };
-  },
+  solution: (input) => solution(input),
 });

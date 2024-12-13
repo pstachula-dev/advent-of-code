@@ -2,6 +2,7 @@ import { join } from 'path/win32';
 import {
   INPUT_PATH,
   runner,
+  directions,
   SAMPLE_PATH,
   splitLines,
 } from '../../../lib/utils';
@@ -22,13 +23,7 @@ const getStarts = (grid: Grid) => {
   return starts;
 };
 
-const directions = [
-  [-1, 0],
-  [1, 0],
-  [0, 1],
-  [0, -1],
-];
-
+// Przepisz od zera z glowy
 const dfs = (grid: Grid, start: Node, end: number, visitOnce: boolean) => {
   let score = 0;
   const rows = grid.length;

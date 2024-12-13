@@ -7,6 +7,24 @@ export const SAMPLE_PATH = 'sample.txt';
 
 export const splitLines = (input: string) => input.split('\n').slice(0, -1);
 
+export const debugGrid = <T>(lines: T[][]) => {
+  const range = Array(lines[0].length)
+    .fill(0)
+    .map((_, i) => i)
+    .join('');
+
+  console.log(' ', range);
+  lines.map((e, y) => console.log(y, e.join('')));
+  console.log('\n');
+};
+
+export const directions: [number, number][] = [
+  [-1, 0],
+  [1, 0],
+  [0, 1],
+  [0, -1],
+];
+
 export const runner = async ({
   solution,
   path,
