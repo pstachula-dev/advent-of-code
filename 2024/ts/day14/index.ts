@@ -11,12 +11,11 @@ const path = `${__dirname}/${INPUT_PATH}`;
 const isSample = path.match('sample.txt');
 // Part2 helper
 // const dataSave: string[] = [];
-
-const debugGrid = <T>(lines: T[][]) => {
-  return lines
-    .map((e, y) => e.map((i) => (i === 0 ? '.' : i)).join('') + '\n')
-    .join('');
-};
+// const debugGrid = <T>(lines: T[][]) => {
+//   return lines
+//     .map((e, y) => e.map((i) => (i === 0 ? '.' : i)).join('') + '\n')
+//     .join('');
+// };
 
 const solution = (input: string) => {
   const data = splitLines(input).map((row) => {
@@ -38,7 +37,7 @@ const solution = (input: string) => {
 
   data.forEach(([[x, y]]) => space[y][x]++);
 
-  for (let i = 0; i < 8000; i++) {
+  for (let i = 0; i < 100; i++) {
     for (let j = 0; j < data.length; j++) {
       const [[x, y], [vx, vy]] = data[j];
       let rx = x + vx;

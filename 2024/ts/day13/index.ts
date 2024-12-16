@@ -5,7 +5,7 @@ import {
   splitLines,
 } from '../../../lib/utils';
 
-const path = `${__dirname}/${SAMPLE_PATH}`;
+const path = `${__dirname}/${INPUT_PATH}`;
 
 const solution = (input: string) => {
   const data: number[][][] = [];
@@ -32,8 +32,8 @@ const solution = (input: string) => {
 
     let result = 0;
 
-    for (let i = 0; i <= 100000; i++) {
-      for (let j = 0; j <= 100000; j++) {
+    for (let i = 0; i <= 100; i++) {
+      for (let j = 0; j <= 100; j++) {
         if (ax * i + bx * j === prizeX && ay * i + by * j === prizeY) {
           result = i * 3 + j;
           break;
@@ -69,10 +69,10 @@ const calcScore = (prize: number, cords: number[], reverse: boolean) => {
   return reverse ? result?.toReversed() : result;
 };
 
-// runner({
-//   path,
-//   solution: (input) => solution(input),
-// });
+runner({
+  path,
+  solution: (input) => solution(input),
+});
 //
 // Button A: X+26, Y+66
 // Button B: X+67, Y+21
