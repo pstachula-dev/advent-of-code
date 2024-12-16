@@ -1,4 +1,3 @@
-import { join } from 'path/win32';
 import {
   INPUT_PATH,
   runner,
@@ -23,8 +22,7 @@ const getStarts = (grid: Grid) => {
   return starts;
 };
 
-// Przepisz od zera z glowy
-const dfs = (grid: Grid, start: Node, end: number, visitOnce: boolean) => {
+const bfs = (grid: Grid, start: Node, end: number, visitOnce: boolean) => {
   let score = 0;
   const rows = grid.length;
   const cols = grid[0].length;
@@ -36,11 +34,7 @@ const dfs = (grid: Grid, start: Node, end: number, visitOnce: boolean) => {
   const stack: Node[] = [start];
 
   while (stack.length) {
-    const node = stack.pop();
-
-    if (!node) throw Error('Missing node!');
-
-    const [x, y, path] = node;
+    const [x, y, path] = stack.pop()!;
 
     if (grid[y][x] === end) {
       if (visitOnce) visitedEnds.add(`${x}${y}`);
@@ -77,7 +71,7 @@ const solution = ({
   const grid = splitLines(input).map((row) => row.split('').map(Number));
 
   return getStarts(grid).reduce(
-    (acc, [x, y]) => acc + dfs(grid, [x, y, []], 9, visitOnce),
+    (acc, [x, y]) => acc + bfs(grid, [x, y, []], 9, visitOnce),
     0,
   );
 };
