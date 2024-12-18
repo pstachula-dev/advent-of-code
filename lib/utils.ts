@@ -25,6 +25,9 @@ export const directions: [number, number][] = [
   [0, -1], // top
 ];
 
+export const getGrid = <T>(size: number, value: T) =>
+  new Array(size).fill('').map(() => new Array<T>(size).fill(value));
+
 export const runner = async ({
   solution,
   path,
