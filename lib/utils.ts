@@ -8,8 +8,18 @@ export const SAMPLE_PATH = 'sample.txt';
 export const splitLines = (input: string) => input.split('\n').slice(0, -1);
 
 export const debugGrid = <T>(lines: T[][]) => {
-  lines.map((e, y) => console.log(y, e.join('')));
+  lines.map((e, y) => console.log(y.toString().padEnd(3), e.join('')));
   console.log('\n');
+};
+
+export const findGridPos = <T>(grid: T[][], char: string) => {
+  let currPos = { x: 0, y: 0 };
+  grid.find((row, y) =>
+    row.find((el, x) => {
+      if (el === char) return (currPos = { x, y });
+    }),
+  );
+  return currPos;
 };
 
 export const directions: [number, number][] = [
