@@ -50,6 +50,7 @@ const solution = (input: string) => {
   return score;
 };
 
+// PART2  TODO: fix
 const calcScore = (prize: number, cords: number[], reverse: boolean) => {
   const [a, b] = reverse ? cords.toReversed() : cords;
   const count = Math.floor(prize / a);

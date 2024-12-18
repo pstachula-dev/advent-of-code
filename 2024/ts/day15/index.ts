@@ -3,12 +3,11 @@ import {
   INPUT_PATH,
   runner,
   SAMPLE_PATH,
-  splitLines,
   directions,
   debugGrid,
 } from '../../../lib/utils';
 
-const path = `${__dirname}/${SAMPLE_PATH}`;
+const path = `${__dirname}/${INPUT_PATH}`;
 
 const WALL = '#';
 const ROBOT = '@';
@@ -301,8 +300,8 @@ const solution = (input: string) => {
       }
     }
 
-    console.log('move: ', move);
-    debugGrid(map);
+    // console.log('move: ', move);
+    // debugGrid(map);
   }
 
   let sum = 0;
@@ -319,5 +318,5 @@ const solution = (input: string) => {
 // TODO: fix part2 later :(
 runner({
   path,
-  solution: (input) => solution2(input),
+  solution: (input) => solution(input),
 });

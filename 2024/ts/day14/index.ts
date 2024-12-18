@@ -1,5 +1,6 @@
 import { writeFileSync } from 'fs';
 import {
+  getGrid,
   INPUT_PATH,
   runner,
   SAMPLE_PATH,
@@ -17,7 +18,8 @@ const isSample = path.match('sample.txt');
 //     .join('');
 // };
 
-const solution = (input: string) => {
+const solution = (input: string, maxx: number, maxy: number) => {
+  const space = getGrid(maxy, maxx, 0);
   const data = splitLines(input).map((row) => {
     const [p, v] = row.split(' ');
     const [, x, y] = p.match(/([-\d]+),([-\d]+)/) || [];
@@ -27,13 +29,6 @@ const solution = (input: string) => {
       [+vx, +vy],
     ];
   });
-
-  const maxy = isSample ? 7 : 103;
-  const maxx = isSample ? 11 : 101;
-
-  const space = new Array(maxy)
-    .fill('.')
-    .map(() => new Array<number>(maxx).fill(0));
 
   data.forEach(([[x, y]]) => space[y][x]++);
 
@@ -86,5 +81,6 @@ const solution = (input: string) => {
 
 runner({
   path,
-  solution: (input) => solution(input),
+  // example 11 / 7
+  solution: (input) => solution(input, 101, 103),
 });

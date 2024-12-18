@@ -6,6 +6,7 @@ import {
   directions,
   SAMPLE_PATH,
   splitLines,
+  getGrid,
 } from '../../../lib/utils';
 
 const path = `${__dirname}/${INPUT_PATH}`;
@@ -46,28 +47,31 @@ const bfs = (grid: string[][], visited: boolean[][], start: Node) => {
   const region: number[] = [];
 
   while (stack.length) {
-    // It will never be null
     const [x, y] = stack.shift()!;
+
+    const plant = grid[y][x];
+    // if (visited[y][x]) continue;
+
+    let score = 0;
 
     if (visited[y][x]) continue;
 
-    const plant = grid[y][x];
+    for (const [dx, dy] of directions) {
+      const nx = x + dx;
+      const ny = y + dy;
 
-    const score = directions.filter(([dx, dy]) => {
-      const moveX = x + dx;
-      const moveY = y + dy;
       if (
-        moveX >= 0 &&
-        moveY >= 0 &&
-        moveX < colLen &&
-        moveY < rowLen &&
-        grid[moveY][moveX] === plant
+        nx >= 0 &&
+        ny >= 0 &&
+        nx < colLen &&
+        ny < rowLen &&
+        grid[ny][nx] === plant
       ) {
         visited[y][x] = true;
-        stack.push([moveX, moveY]);
-        return true;
+        stack.push([nx, ny]);
+        score++;
       }
-    }).length;
+    }
 
     region.push(4 - score);
   }
@@ -85,8 +89,8 @@ const findDiaglonal = (
 ) => {
   const plant = grid[y][x];
 
-  // outer
   directionsDiagonal.forEach((diagonal, idx) => {
+    // outer
     if (
       diagonal.every(([dx, dy], i) => {
         const moveX = x + dx;
@@ -97,10 +101,8 @@ const findDiaglonal = (
       const [dx, dy] = diagonal[0];
       corners.add(`${idx}:${x + dx}:${y + dy}`);
     }
-  });
 
-  // inter
-  directionsDiagonal.forEach((diagonal, idx) => {
+    // inter
     if (
       diagonal.every(([dx, dy], idx) => {
         const moveX = x + dx;
@@ -125,7 +127,6 @@ const bfsSides = (grid: string[][], visited: boolean[][], start: Node) => {
   const corners = new Set<string>();
   const region: number[] = [];
   const [startX, startY] = start;
-  const rootPlan = grid[startY][startX];
   let score = 0;
 
   // Check start node
@@ -133,7 +134,6 @@ const bfsSides = (grid: string[][], visited: boolean[][], start: Node) => {
 
   // Check children
   while (stack.length) {
-    // It will never be null
     const [x, y] = stack.shift()!;
 
     if (visited[y][x]) continue;
@@ -172,9 +172,7 @@ const solution = (
   const rowLen = grid[0].length;
 
   const regions: number[][] = [];
-  const visited = Array(rowLen)
-    .fill(false)
-    .map(() => Array<boolean>(colLen).fill(false));
+  const visited = getGrid(rowLen, colLen, false);
 
   grid.forEach((row, y) => {
     row.forEach((_, x) => {

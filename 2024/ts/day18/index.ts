@@ -11,14 +11,14 @@ import {
 const path = `${__dirname}/${INPUT_PATH}`;
 
 const solution = (input: string, size: number, bytes: number) => {
-  const grid = getGrid(size, '.');
+  const grid = getGrid(size, size, '.');
   const positions = splitLines(input).map((r) => r.split(',').map(Number));
   positions.slice(0, bytes).forEach(([x, y]) => {
     grid[y][x] = '#';
   });
 
   const queue: [number, number, number][] = [[0, 0, 0]];
-  const visited = getGrid(size, false);
+  const visited = getGrid(size, size, false);
   // debugGrid(grid);
 
   while (queue.length) {

@@ -4,6 +4,7 @@ import {
   directions,
   SAMPLE_PATH,
   splitLines,
+  getGrid,
 } from '../../../lib/utils';
 
 const path = `${__dirname}/${INPUT_PATH}`;
@@ -26,33 +27,27 @@ const bfs = (grid: Grid, start: Node, end: number, visitOnce: boolean) => {
   let score = 0;
   const rows = grid.length;
   const cols = grid[0].length;
-  const visitedEnds = new Set<string>();
-  const visited = Array(rows)
-    .fill(false)
-    .map(() => Array<boolean>(cols).fill(false));
+  const visited = getGrid(rows, cols, false);
 
   const stack: Node[] = [start];
 
   while (stack.length) {
-    const [x, y, path] = stack.pop()!;
+    const [x, y, path] = stack.shift()!;
 
     if (grid[y][x] === end) {
-      if (visitOnce) visitedEnds.add(`${x}${y}`);
       score++;
     }
 
-    if (!visited[y][x]) {
-      for (const [dx, dy] of directions) {
-        const moveY = y + dy;
-        const moveX = x + dx;
+    for (const [dx, dy] of directions) {
+      const ny = y + dy;
+      const nx = x + dx;
 
-        const hasMovement =
-          moveX >= 0 && moveX < cols && moveY >= 0 && moveY < rows;
+      if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
+        if (visitOnce && visited[ny][nx]) continue;
 
-        if (hasMovement && grid[moveY][moveX] - grid[y][x] === 1) {
-          if (visitOnce ? !visitedEnds.has(`${moveX}${moveY}`) : true) {
-            stack.push([moveX, moveY, [...path, [moveX, moveY]]]);
-          }
+        if (grid[ny][nx] - grid[y][x] === 1) {
+          visited[ny][nx] = true;
+          stack.push([nx, ny, [...path, [nx, ny]]]);
         }
       }
     }

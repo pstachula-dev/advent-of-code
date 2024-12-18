@@ -8,12 +8,6 @@ export const SAMPLE_PATH = 'sample.txt';
 export const splitLines = (input: string) => input.split('\n').slice(0, -1);
 
 export const debugGrid = <T>(lines: T[][]) => {
-  // const range = Array(lines[0].length)
-  //   .fill(0)
-  //   .map((_, i) => i)
-  //   .join('');
-
-  // console.log(' ', range);
   lines.map((e, y) => console.log(y, e.join('')));
   console.log('\n');
 };
@@ -25,8 +19,8 @@ export const directions: [number, number][] = [
   [0, -1], // top
 ];
 
-export const getGrid = <T>(size: number, value: T) =>
-  new Array(size).fill('').map(() => new Array<T>(size).fill(value));
+export const getGrid = <T>(rows: number, cols: number, value: T) =>
+  new Array(rows).fill('').map(() => new Array<T>(cols).fill(value));
 
 export const runner = async ({
   solution,
