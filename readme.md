@@ -45,3 +45,4 @@ bun 2024/ts/day01/index.ts
 | [Day 16](/2024/ts/day16/index.ts) | - ms | - ms |
 | [Day 17](/2024/ts/day17/index.ts) | 4.6 ms | - ms |
 | [Day 18](/2024/ts/day18/index.ts) | 3.4 ms | 33.1 ms |
+| [Day 19](/2024/ts/day19/index.ts) | 22.2 ms | 142.1 ms |
