@@ -1,10 +1,4 @@
-import { range } from 'lodash';
-import {
-  INPUT_PATH,
-  runner,
-  SAMPLE_PATH,
-  splitLines,
-} from '../../../lib/utils';
+import { INPUT_PATH, runner, SAMPLE_PATH } from '../../../lib/utils';
 
 const path = `${__dirname}/${INPUT_PATH}`;
 
@@ -45,20 +39,20 @@ const solution2 = (input: string) => {
   const patterns = patternsRaw.split(', ');
 
   const hasDesign = (str: string, memo: Map<string, number>): number => {
-    let count = 0;
+    let localCount = 0;
 
-    if (memo.has(str)) return memo.get(str) || count;
+    if (memo.has(str)) return memo.get(str) || localCount;
     if (str === '') return 1;
 
     for (const p of patterns) {
       if (str.startsWith(p)) {
         const part = str.substring(p.length);
-        count += hasDesign(part, memo);
-        memo.set(str, count);
+        localCount += hasDesign(part, memo);
+        memo.set(str, localCount);
       }
     }
 
-    return count;
+    return localCount;
   };
 
   let count = 0;
