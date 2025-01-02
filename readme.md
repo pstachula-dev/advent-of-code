@@ -50,5 +50,5 @@ bun 2024/ts/day01/index.ts
 | [Day 21](/2024/ts/day21/index.ts) | - ms | - ms |
 | [Day 22](/2024/ts/day22/index.ts) | 33.9ms | 1126.5ms |
 | [Day 23](/2024/ts/day23/index.ts) | 5.2 ms | 3.6 ms |
-| [Day 24](/2024/ts/day24/index.ts) | - ms | - ms |
-| [Day 25](/2024/ts/day25/index.ts) | - ms | - ms |
+| [Day 24](/2024/ts/day24/index.ts) | 2.5 ms | - ms |
+| [Day 25](/2024/ts/day25/index.ts) | 5.2 ms | - ms |
