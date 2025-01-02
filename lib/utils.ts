@@ -35,16 +35,18 @@ export const getGrid = <T>(rows: number, cols: number, value: T) =>
 export const runner = async ({
   solution,
   path,
+  name,
 }: {
   solution: (arg: string) => void;
   path: string;
   label?: string;
   limit?: number;
   splitChar?: SplitChar;
+  name?: string;
 }) => {
   const data = await promises.readFile(path, 'utf8');
   const t0 = performance.now();
-  console.log('Result:', solution(data));
+  console.log(`${name || 'Result'}:`, solution(data));
   const t1 = performance.now();
   console.log('Bench:', `Time ${t1 - t0}`, 'ms');
 };

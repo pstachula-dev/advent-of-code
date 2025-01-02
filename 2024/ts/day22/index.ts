@@ -33,7 +33,7 @@ const solution1 = (input: string) => {
 };
 
 const solution2 = (input: string) => {
-  const diffs: Record<string, number[]> = {};
+  const diffs: Record<string, number> = {};
 
   splitLines(input)
     .map(Number)
@@ -49,24 +49,24 @@ const solution2 = (input: string) => {
         const diff = price - last;
         last = price;
 
-        key.push(String(diff));
+        key.push(diff.toString());
+        const keyStr = key.join('');
+
+        if (keysCache[keyStr]) {
+          key.shift();
+          continue;
+        }
 
         if (key.length > 3) {
-          const keyStr = key.join('');
-          if (!diffs[keyStr]) diffs[keyStr] = [];
-
-          if (!keysCache[keyStr]) {
-            diffs[keyStr].push(price);
-            keysCache[keyStr] = true;
-          }
+          if (!diffs[keyStr]) diffs[keyStr] = 0;
+          diffs[keyStr] += price;
+          keysCache[keyStr] = true;
           key.shift();
         }
       }
     });
 
-  return Math.max(
-    ...Object.values(diffs).map((val) => val.reduce((a, c) => a + c, 0)),
-  );
+  return Math.max(...Object.values(diffs));
 };
 
 runner({
