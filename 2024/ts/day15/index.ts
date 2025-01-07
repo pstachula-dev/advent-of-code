@@ -17,7 +17,9 @@ const BOX_RIGHT = ']';
 const EMPTY = '.';
 const defaultPos: [number, string] = [-1, ''];
 
-const isBox = (s: string) => [BOX_LEFT, BOX_RIGHT].includes(s);
+const boxSet = new Set([BOX_LEFT, BOX_RIGHT]);
+
+const isBox = (s: string) => boxSet.has(s);
 
 const getDirection = (direction: string) => {
   switch (direction) {

@@ -1,5 +1,4 @@
 import {
-  debugGrid,
   directions,
   findGridPos,
   getGrid,
@@ -50,8 +49,6 @@ const getManhatanDist = (point1: Point, point2: Point) => {
 
 const parseInput = (input: string) => {
   const grid = splitLines(input).map((r) => r.split(''));
-  const maxy = grid.length;
-  const maxx = grid[0].length;
   const start = findGridPos(grid, 'S');
   const end = findGridPos(grid, 'E');
   const path = bfs(grid, start, end);
@@ -59,19 +56,22 @@ const parseInput = (input: string) => {
   return { grid, path };
 };
 
-const solution2 = (input: string, distSize: number, minPicoSec: number) => {
+export const solution2 = (
+  input: string,
+  maxDist: number,
+  minPicoSize: number,
+) => {
   const { grid, path } = parseInput(input);
   const results: Record<number, number> = {};
 
   for (let i = 0; i < path.length; i++) {
     const point = path[i];
 
-    for (let j = i; j < path.length; j++) {
+    for (let j = i + 1; j < path.length; j++) {
       const dist = getManhatanDist(point, path[j]);
-      const pointDiff = j - dist;
-      const diff = pointDiff - i;
+      const diff = j - dist - i;
 
-      if (dist > distSize || pointDiff <= i || diff < minPicoSec) continue;
+      if (dist > maxDist || diff < minPicoSize) continue;
 
       if (results[diff] === undefined) {
         results[diff] = 1;
@@ -81,10 +81,7 @@ const solution2 = (input: string, distSize: number, minPicoSec: number) => {
     }
   }
 
-  return Object.keys(results).reduce(
-    (acc, curr) => acc + results[Number(curr)],
-    0,
-  );
+  return Object.values(results).reduce((acc, curr) => acc + curr, 0);
 };
 
 runner({
