@@ -26,7 +26,7 @@ function dijkstra(
 ) {
   const rows = grid.length;
   const cols = grid[0].length;
-  const distances = getGrid(rows, cols, Infinity);
+  const distances = getGrid(rows, cols, Number.POSITIVE_INFINITY);
   const previous = getGrid<Point | null>(rows, cols, null);
   const prevDirections = getGrid<Point | null>(rows, cols, null);
   const visited = getGrid(rows, cols, false);
@@ -34,7 +34,7 @@ function dijkstra(
   distances[sy][sx] = 0;
 
   while (true) {
-    let minDistance = Infinity;
+    let minDistance = Number.POSITIVE_INFINITY;
     let current: Point | null = null;
 
     for (let i = 0; i < rows; i++) {
@@ -84,7 +84,7 @@ function dijkstra(
   const path: Point[] = [];
   let current: Point | null = [ex, ey];
 
-  if (distances[ey][ex] === Infinity) {
+  if (distances[ey][ex] === Number.POSITIVE_INFINITY) {
     return { distance: -1, path: [] };
   }
 

@@ -51,7 +51,7 @@ const solution = (input: string) => {
     .map((reg) => registerMap[reg])
     .join('');
 
-  return parseInt(result, 2);
+  return Number.parseInt(result, 2);
 };
 
 runner({

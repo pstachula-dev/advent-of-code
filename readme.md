@@ -2,23 +2,17 @@
 
 ### How to run code:
 
-Requirements: Nodejs 12+ / Bun
+Requirements:  Bun
 
 1. Install dependencies
 
-```
-npm i
+```sh
+bun i
 ```
 
 2. Inside root directory run:
 
-```
-npx ts-node 2021/day2
-```
-
-or
-
-```
+```sh
 bun 2024/ts/day01/index.ts
 ```
 

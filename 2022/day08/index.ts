@@ -40,7 +40,7 @@ runner({
   path,
   solution: (input) => {
     const matrix = splitToFlatArray({ input }).map((row) =>
-      row.split('').map((e) => parseInt(e)),
+      row.split('').map((e) => Number.parseInt(e)),
     );
 
     const ROW_SIZE = matrix[0].length;
@@ -134,7 +134,7 @@ runner({
   path,
   solution: (input) => {
     const matrix = splitToFlatArray({ input }).map((row) =>
-      row.split('').map((e) => parseInt(e)),
+      row.split('').map((e) => Number.parseInt(e)),
     );
     const ROW_SIZE = matrix[0].length;
     const ROW_LAST_INDEX = ROW_SIZE - 1;

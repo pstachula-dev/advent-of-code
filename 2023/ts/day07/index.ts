@@ -24,7 +24,7 @@ runner({
   solution: (input) => {
     const cards: string[] = [];
     const values: number[] = [];
-    const enum Type {
+    enum Type {
       Five = 7,
       Four = 6,
       Full = 5,

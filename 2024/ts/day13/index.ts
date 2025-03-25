@@ -50,54 +50,99 @@ const solution = (input: string) => {
   return score;
 };
 
-// PART2  TODO: fix
-const calcScore = (prize: number, cords: number[], reverse: boolean) => {
-  const [a, b] = reverse ? cords.toReversed() : cords;
-  const count = Math.floor(prize / a);
-
-  let result: number[] | null = null;
-
-  for (let i = 0; i <= 100; i++) {
-    for (let j = 0; j <= 100; j++) {
-      if (b * j + a * (count - i) === prize) {
-        result = [count - i, j];
-        break;
-      }
-    }
-    if (result) break;
-  }
-
-  return reverse ? result?.toReversed() : result;
-};
-
 runner({
   path,
   solution: (input) => solution(input),
 });
-//
-// Button A: X+26, Y+66
-// Button B: X+67, Y+21
-// Prize: X=10000000012748, Y=10000000012176
 
-const scoreY = 10000000012176;
-const scoreX = 10000000012748;
-const xa = 26;
-const xb = 67;
-const ya = 66;
-const yb = 11;
+function extendedGcd(a, b) {
+  if (b === 0) return { gcd: a, x: 1, y: 0 };
+  const { gcd, x, y } = extendedGcd(b, a % b);
+  return {
+    gcd: gcd,
+    x: y,
+    y: x - Math.floor(a / b) * y,
+  };
+}
 
-function extendedEuclidean(
-  a: number,
-  b: number,
-): { gcd: number; x: number; y: number } {
-  if (b === 0) {
-    return { gcd: a, x: 1, y: 0 };
+function findMinTokens(prizeX, prizeY, ax, ay, bx, by) {
+  // We need to solve:
+  // i*ax + j*bx = prizeX
+  // i*ay + j*by = prizeY
+
+  const { gcd } = extendedGcd(ax, bx);
+  if (prizeX % gcd !== 0) return null;
+
+  const { gcd: gcd2 } = extendedGcd(ay, by);
+  if (prizeY % gcd2 !== 0) return null;
+
+  // Find a particular solution for the first equation
+  const g1 = extendedGcd(ax, bx);
+  const x0 = (g1.x * (prizeX / g1.gcd)) % g1.gcd;
+  const y0 = (prizeX - ax * x0) / bx;
+
+  // Find a particular solution for the second equation
+  const g2 = extendedGcd(ay, by);
+  const x1 = (g2.x * (prizeY / g2.gcd)) % g2.gcd;
+  const y1 = (prizeY - ay * x1) / by;
+
+  // Find a common solution
+  let i = 0;
+  while (i < 1000000) {
+    if (i === x0 && i === x1) {
+      const j = y0 - (ax / g1.gcd) * i;
+      return { i, j };
+    }
+    i++;
   }
 
-  const { gcd, x: x1, y: y1 } = extendedEuclidean(b, a % b);
-
-  const x = y1;
-  const y = x1 - Math.floor(a / b) * y1;
-
-  return { gcd, x, y };
+  return null;
 }
+
+function solution2(input) {
+  const lines = input.split('\n');
+  const data = [];
+  let part = [];
+
+  lines.forEach((row, idx) => {
+    const [x, y] = row.match(/\d+/g)?.map(Number) || [];
+    part.push(x, y);
+
+    if ((idx + 1) % 3 === 0) {
+      // Assuming each machine has ax, ay, bx, by, prizeX, prizeY
+      data.push({
+        ax: part[0],
+        ay: part[1],
+        bx: part[2],
+        by: part[3],
+        prizeX: part[4],
+        prizeY: part[5],
+      });
+      part = [];
+    }
+  });
+
+  let totalScore = 0;
+
+  for (const machine of data) {
+    const result = findMinTokens(
+      machine.prizeX,
+      machine.prizeY,
+      machine.ax,
+      machine.ay,
+      machine.bx,
+      machine.by,
+    );
+
+    if (result !== null) {
+      totalScore += 3 * result.i + result.j;
+    }
+  }
+
+  return totalScore;
+}
+
+runner({
+  path,
+  solution: (input) => solution2(input),
+});

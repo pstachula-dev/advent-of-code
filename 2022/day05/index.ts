@@ -22,7 +22,7 @@ const crateMover9000 = (input: string, reverse?: boolean) => {
   });
 
   moves
-    .map((move) => move.match(/\d+/g)?.map((el) => parseInt(el)))
+    .map((move) => move.match(/\d+/g)?.map((el) => Number.parseInt(el)))
     .forEach(([moves, from, to] = []) => {
       const crates = cols[from - 1].splice(cols[from - 1].length - moves);
       cols[to - 1].push(...(reverse ? crates.reverse() : crates));

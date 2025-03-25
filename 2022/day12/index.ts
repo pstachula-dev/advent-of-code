@@ -67,7 +67,7 @@ runner({
         },
         ...rest
           .slice(1, rest.length)
-          .map((node) => ({ node, weight: Infinity })),
+          .map((node) => ({ node, weight: Number.POSITIVE_INFINITY })),
       ];
       const vistedNodes: HeatGraph = [{ node: start, weight: 0 }];
       const paths: HeatGraph = [...nodesQueue];
@@ -96,7 +96,7 @@ runner({
               childNode.weight < totalWeight ? childNode.weight : totalWeight;
 
             childNode.weight =
-              childNode.weight === Infinity ? totalWeight : newWeight;
+              childNode.weight === Number.POSITIVE_INFINITY ? totalWeight : newWeight;
           }
         }
 

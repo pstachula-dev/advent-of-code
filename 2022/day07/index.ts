@@ -45,7 +45,7 @@ const parseTreeSizes = (input: string): number[] => {
         parent: currentDir,
         children: [],
         totalSize: 0,
-        size: isDir ? 0 : parseInt(type, 10),
+        size: isDir ? 0 : Number.parseInt(type, 10),
       });
     }
   });

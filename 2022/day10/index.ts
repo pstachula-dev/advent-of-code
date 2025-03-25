@@ -23,7 +23,7 @@ runner({
         const [register, value] = el.split(' ');
         return {
           register: register as REGISTER,
-          value: parseInt(value),
+          value: Number.parseInt(value),
         };
       })
       .forEach(({ register, value }) => {
@@ -73,7 +73,7 @@ runner({
         const [register, value] = el.split(' ');
         return {
           register: register as REGISTER,
-          value: parseInt(value),
+          value: Number.parseInt(value),
         };
       })
       .forEach(({ register, value }) => {

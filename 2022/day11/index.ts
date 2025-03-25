@@ -6,15 +6,15 @@ const parseMonkey = (row: string[]) => {
   const [monkey, items, operation, test, ifTrue, ifFalse] = row;
 
   return {
-    monkey: parseInt(monkey.split(' ')[1].replace(':', ''), 10),
+    monkey: Number.parseInt(monkey.split(' ')[1].replace(':', ''), 10),
     items: items
       .split(' ')
       .slice(4)
-      .map((e) => parseInt(e, 10)),
+      .map((e) => Number.parseInt(e, 10)),
     op: operation.split(' ').slice(5),
-    test: parseInt(test.split(' ')[5], 10),
-    ifTrue: parseInt(ifTrue.split(' ')[9], 10),
-    ifFalse: parseInt(ifFalse.split(' ')[9], 10),
+    test: Number.parseInt(test.split(' ')[5], 10),
+    ifTrue: Number.parseInt(ifTrue.split(' ')[9], 10),
+    ifFalse: Number.parseInt(ifFalse.split(' ')[9], 10),
   };
 };
 
@@ -34,8 +34,8 @@ const monkeysInspector = (input: string, limit: number, divider?: number) => {
         monkeysInspected[mStr]
           ? monkeysInspected[mStr]++
           : (monkeysInspected[mStr] = 1);
-        const oldVal1 = val1 === 'old' ? val : parseInt(val1);
-        const oldVal2 = val2 === 'old' ? val : parseInt(val2);
+        const oldVal1 = val1 === 'old' ? val : Number.parseInt(val1);
+        const oldVal2 = val2 === 'old' ? val : Number.parseInt(val2);
         const oldVal =
           operation === '+' ? oldVal1 + oldVal2 : oldVal1 * oldVal2;
         const wLevel = divider

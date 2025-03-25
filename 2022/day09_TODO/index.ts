@@ -65,7 +65,7 @@ runner({
   solution: (input) => {
     const moves = splitToFlatArray({ input }).map((e) => {
       const [move, value] = e.split(' ');
-      return { move: move as MOVE, value: parseInt(value) };
+      return { move: move as MOVE, value: Number.parseInt(value) };
     });
     const tail: Rope = {
       char: 'T',

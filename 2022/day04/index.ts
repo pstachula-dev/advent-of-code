@@ -9,8 +9,8 @@ runner({
       splitGroupChar: '\n',
       splitChar: ',',
     }).filter(([left, right]) => {
-      const [firstStart, firstEnd] = left.split('-').map((e) => parseInt(e));
-      const [secondStart, secondEnd] = right.split('-').map((e) => parseInt(e));
+      const [firstStart, firstEnd] = left.split('-').map((e) => Number.parseInt(e));
+      const [secondStart, secondEnd] = right.split('-').map((e) => Number.parseInt(e));
 
       return (
         (firstStart <= secondStart && firstEnd >= secondEnd) ||
@@ -29,8 +29,8 @@ runner({
       splitGroupChar: '\n',
       splitChar: ',',
     }).filter(([left, right]) => {
-      const [firstStart, firstEnd] = left.split('-').map((e) => parseInt(e));
-      const [secondStart, secondEnd] = right.split('-').map((e) => parseInt(e));
+      const [firstStart, firstEnd] = left.split('-').map((e) => Number.parseInt(e));
+      const [secondStart, secondEnd] = right.split('-').map((e) => Number.parseInt(e));
 
       return firstStart <= secondEnd && firstEnd >= secondStart;
     }).length;

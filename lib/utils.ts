@@ -54,7 +54,7 @@ export const runner = async ({
 export const splitToFlatArray = <T extends string | number = string>({
   input,
   splitChar = '\n',
-  limit = Infinity,
+  limit = Number.POSITIVE_INFINITY,
   parser = (e) => e as T,
 }: {
   input: string;
@@ -69,7 +69,7 @@ export const splitIntoGroups = <T extends string | number = string>({
   input,
   splitGroupChar = '\n\n',
   splitChar = '\n',
-  limit = Infinity,
+  limit = Number.POSITIVE_INFINITY,
   parser = (e) => e as T,
 }: {
   input: string;
