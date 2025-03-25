@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "lib": ["ESNext"],
+    "module": "ESNext",
     "target": "ESNext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
     "allowJs": true,
     "strict": true
   },

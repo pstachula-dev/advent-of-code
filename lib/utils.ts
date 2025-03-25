@@ -1,4 +1,5 @@
 import { promises } from 'fs';
+import { performance } from 'perf_hooks';
 
 export type SplitChar = '\n' | '\n\n' | ' ' | ',';
 
