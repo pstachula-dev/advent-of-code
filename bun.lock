@@ -1,10 +1,12 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "dependencies": {
         "@types/lodash": "^4.17.13",
         "@types/ramda": "^0.28.20",
+        "es-toolkit": "^1.42.0",
         "lodash": "^4.17.21",
         "ramda": "^0.28.0",
         "remeda": "^1.3.0",
@@ -104,6 +106,8 @@
     "dir-glob": ["dir-glob@3.0.1", "", { "dependencies": { "path-type": "^4.0.0" } }, "sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA=="],
 
     "doctrine": ["doctrine@3.0.0", "", { "dependencies": { "esutils": "^2.0.2" } }, "sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w=="],
+
+    "es-toolkit": ["es-toolkit@1.42.0", "", {}, "sha512-SLHIyY7VfDJBM8clz4+T2oquwTQxEzu263AyhVK4jREOAwJ+8eebaa4wM3nlvnAqhDrMm2EsA6hWHaQsMPQ1nA=="],
 
     "escape-string-regexp": ["escape-string-regexp@4.0.0", "", {}, "sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA=="],
 
